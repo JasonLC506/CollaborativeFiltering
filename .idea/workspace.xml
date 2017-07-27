@@ -22,7 +22,7 @@
   <component name="FileEditorManager">
     <splitter split-orientation="horizontal" split-proportion="0.62997514">
       <split-first>
-        <splitter split-orientation="horizontal" split-proportion="0.3478261">
+        <splitter split-orientation="horizontal" split-proportion="0.68577075">
           <split-first>
             <leaf>
               <file leaf-file-name="MFMultiClass.py" pinned="false" current-in-tab="false">
@@ -35,17 +35,17 @@
                   </provider>
                 </entry>
               </file>
-              <file leaf-file-name="synthetic.py" pinned="false" current-in-tab="false">
+              <file leaf-file-name="synthetic.py" pinned="false" current-in-tab="true">
                 <entry file="file://$PROJECT_DIR$/synthetic.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="603">
-                      <caret line="63" column="59" selection-start-line="63" selection-start-column="59" selection-end-line="63" selection-end-column="59" />
+                    <state relative-caret-position="654">
+                      <caret line="63" column="71" selection-start-line="63" selection-start-column="71" selection-end-line="63" selection-end-column="71" />
                       <folding />
                     </state>
                   </provider>
                 </entry>
               </file>
-              <file leaf-file-name="traintestSplit.py" pinned="false" current-in-tab="true">
+              <file leaf-file-name="traintestSplit.py" pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/traintestSplit.py">
                   <provider selected="true" editor-type-id="text-editor">
                     <state relative-caret-position="408">
@@ -122,9 +122,9 @@
         <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/MFMultiClass.py" />
         <option value="$PROJECT_DIR$/trainingDataGenerator.py" />
-        <option value="$PROJECT_DIR$/synthetic.py" />
         <option value="$PROJECT_DIR$/traintestSplit.py" />
         <option value="$PROJECT_DIR$/experiment.py" />
+        <option value="$PROJECT_DIR$/synthetic.py" />
       </list>
     </option>
   </component>
@@ -197,7 +197,7 @@
       <pane id="Scratches" />
     </panes>
   </component>
-  <component name="RunManager" selected="Python.experiment">
+  <component name="RunManager" selected="Python.synthetic">
     <configuration default="false" name="test" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -426,9 +426,9 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.experiment" />
-        <item index="1" class="java.lang.String" itemvalue="Python.traintestSplit" />
-        <item index="2" class="java.lang.String" itemvalue="Python.synthetic" />
+        <item index="0" class="java.lang.String" itemvalue="Python.synthetic" />
+        <item index="1" class="java.lang.String" itemvalue="Python.experiment" />
+        <item index="2" class="java.lang.String" itemvalue="Python.traintestSplit" />
         <item index="3" class="java.lang.String" itemvalue="Python.test" />
         <item index="4" class="java.lang.String" itemvalue="Python.trainingDataGenerator" />
       </list>
@@ -451,7 +451,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -535,14 +535,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/synthetic.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="603">
-          <caret line="63" column="59" selection-start-line="63" selection-start-column="59" selection-end-line="63" selection-end-column="59" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/experiment.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="527">
@@ -557,6 +549,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
           <caret line="27" column="16" selection-start-line="27" selection-start-column="16" selection-end-line="27" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/synthetic.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="654">
+          <caret line="63" column="71" selection-start-line="63" selection-start-column="71" selection-end-line="63" selection-end-column="71" />
           <folding />
         </state>
       </provider>

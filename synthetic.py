@@ -26,7 +26,7 @@ class MFsynthetic(object):
             while cnt < Nsamp:
                 uid = np.random.randint(0, self.N)
                 iid = np.random.randint(0, self.M)
-                dyadid = str(uid) + "_" + str(iid)
+                dyadid = uid + iid * self.N
                 if dyadid in self.dyaddict:
                     continue
                 else:
@@ -56,9 +56,9 @@ class MFsynthetic(object):
 
 if __name__ == "__main__":
     np.random.seed(2017)
-    N = 1500
-    M = 1500
+    N = 20000
+    M = 10000000
     L = 3
     K = 5
     generator = MFsynthetic(N = N, M = M, L = L, K = K) # based on [1]
-    generator.generate2file(1.0, "data/synthetic_N%d_M%d_L%d_K%d" % (N,M,L,K))
+    generator.generate2file(0.002, "data/synthetic_N%d_M%d_L%d_K%d" % (N,M,L,K))
