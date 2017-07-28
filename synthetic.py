@@ -34,7 +34,7 @@ class MFsynthetic(object):
             while cnt < Nsamp:
                 # stage-wise sampling for large sampling size #
                 if cnt < MemorySampleSize * (seg + 1):
-                    iid = np.random.randint(Mseg * seg, Mseg * (seg + 1))
+                    iid = np.random.randint(Mseg * seg, min([Mseg * (seg + 1), self.M]))
                 else:
                     seg += 1
                     self.dyaddict.clear()
