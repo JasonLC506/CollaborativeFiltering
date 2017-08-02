@@ -19,7 +19,7 @@ class MFsynthetic(object):
         self.u = np.random.random(self.N*self.L*self.K).reshape([self.N, self.L, self.K]) * 6.0 - 3.0
         self.v = np.random.random(self.M*self.L*self.K).reshape([self.M, self.L, self.K]) * 6.0 - 3.0
 
-    def generate(self, fraction, MemorySampleSize = 1e+8):
+    def generate(self, fraction, MemorySampleSize = 1e+7):
         Nsamp = self.N * self.M * fraction
 
         # deal with large sample size #
@@ -38,6 +38,7 @@ class MFsynthetic(object):
                 else:
                     seg += 1
                     self.dyaddict.clear()
+                    print seg, len(self.dyaddict)
                     continue
                 uid = np.random.randint(0, self.N)
                 dyadid = uid + iid * self.N
