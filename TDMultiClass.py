@@ -89,7 +89,7 @@ class TD(object):
         uid, iid, lid = instance
         ## calculate single gradient ##
         # intermediate #
-        m = self._TDreconstruct(self.c, self.u[uid], self.v[iid], self.r)
+        m = TDreconstruct(self.c, self.u[uid], self.v[iid], self.r)
         expm = np.exp(m)
         expmsum = np.sum(expm)
         mgrad = expm / expmsum
@@ -151,7 +151,7 @@ class TD(object):
 
     def predict(self, uid, iid, distribution = True):
         self.initialize(uid, iid, predict = True)
-        m = self._TDreconstruct(self.c, self.u[uid], self.v[iid], self.r)
+        m = TDreconstruct(self.c, self.u[uid], self.v[iid], self.r)
         expm = np.exp(m)
         expmsum = np.sum(expm)
         if distribution:
@@ -159,12 +159,12 @@ class TD(object):
         else:
             return np.argmax(expm)
 
-    def _TDreconstruct(self, c, u, v, t):
-        ## calculate TD reconstruction with t as matrix np.array(self.L, self.kr) ##
-        m = np.tensordot(a = t, axes = (1, 0),
-                         b = np.tensordot(a = u, axes = (0, 0),
-                                        b = np.tensordot(a = v, axes = (0, 1),
-                                                       b = c)
-                                        )
-                         )  # np.array([self.L,])
-        return m
+def TDreconstruct(c, u, v, t):
+    ## calculate TD reconstruction with t as matrix np.array(self.L, self.kr) ##
+    m = np.tensordot(a = t, axes = (1, 0),
+                     b = np.tensordot(a = u, axes = (0, 0),
+                                    b = np.tensordot(a = v, axes = (0, 1),
+                                                   b = c)
+                                    )
+                     )  # np.array([self.L,])
+    return m
