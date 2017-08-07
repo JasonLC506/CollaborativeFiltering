@@ -32,7 +32,7 @@ def split(frac_training,frac_valid, datafile, file_train, file_valid, file_test)
 if __name__ == "__main__":
     frac_training = 0.7
     frac_valid = 0.1
-    datafile = "data/TDsynthetic_N500_M500_L3_ku20_kv20_kr10"
+    datafile = "data/TDTsynthetic_N500_M500_L3_ku20_kv20_kr10"
     split(frac_training = frac_training, frac_valid = frac_valid,
           datafile = datafile,
           file_train = datafile + "_" + str(frac_training)+"train",

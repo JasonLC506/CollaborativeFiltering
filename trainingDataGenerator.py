@@ -26,7 +26,7 @@ class datagenerator(object):
         self.label_dict = label_dict
 
         with open(self.datafile, "r") as f:
-            for line in f.readlines():
+            for line in f:
                 try:
                     transaction = ast.literal_eval(line.rstrip()) # into transaction dictionary
                 except:
@@ -58,7 +58,7 @@ class datagenerator(object):
         """
         if random is False:
             with open(self.datafile, "r") as f:
-                for line in f.readlines():
+                for line in f:
                     # transform into formal input #
                     try:
                         transaction = ast.literal_eval(line.rstrip())

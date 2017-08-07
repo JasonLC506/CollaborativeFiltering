@@ -1,7 +1,5 @@
-from MFMultiClass import MF
-from TDMultiClass import TD
-from CDMultiClass import CD
-from trainingDataGenerator import datagenerator
+from TDTensor import TDTensor
+from trainingDataGeneratorTensor import datageneratorTensor as datagenerator
 
 def experiment(data_train, data_valid, data_test, ku, kv, kr, max_epoch = 10, SGDstep = 0.001):
 # def experiment(data_train, data_valid, data_test, K, max_epoch=10, SGDstep=0.001):
@@ -13,29 +11,14 @@ def experiment(data_train, data_valid, data_test, ku, kv, kr, max_epoch = 10, SG
     # model = MF()
     # model = CD()
     # model.fit(training, valid, K = K, max_epoch = max_epoch, SGDstep = SGDstep)
-    model = TD()
+    model = TDTensor()
     model.fit(training, valid, ku, kv, kr, max_epoch=max_epoch, SGDstep=SGDstep)
     perf = performance(test, model)
     return perf
 
-
 def performance(test, model):
-    ppl = model.loss(test)
-    # model prediction distribution#
-    dist = {}
-    # 0-1 accuracy#
-    correct = 0
-    Ntest = 0
-    for samp in test.sample(random = False):
-        uid, iid, lid = samp
-        lid_pred = model.predict(uid, iid, distribution=False)
-        dist.setdefault(lid_pred,[0,0])[0] += 1
-        if lid == lid_pred:
-            correct += 1
-            dist[lid_pred][1] += 1
-        Ntest += 1
-    accuracy = 1.0 * correct / Ntest
-    return [ppl, accuracy, dist]
+    mse = model.loss(test)
+    return mse
 
 if __name__ == "__main__":
     # print experiment(data_train = "data/synthetic_N500_M500_L3_K5_0.7train",
@@ -44,9 +27,9 @@ if __name__ == "__main__":
     #                  ku = 15, kv = 15, kr = 15,
     #                  # K = 15,
     #                  max_epoch = 1000, SGDstep = 0.001)
-    print experiment(data_train="data/TDsynthetic_N500_M500_L3_ku20_kv20_kr10_0.7train",
-                     data_valid="data/TDsynthetic_N500_M500_L3_ku20_kv20_kr10_0.1test",
-                     data_test="data/TDsynthetic_N500_M500_L3_ku20_kv20_kr10_0.2valid",
+    print experiment(data_train="data/TDTsynthetic_N500_M500_L3_ku20_kv20_kr10_0.7train",
+                     data_valid="data/TDTsynthetic_N500_M500_L3_ku20_kv20_kr10_0.1valid",
+                     data_test="data/TDTsynthetic_N500_M500_L3_ku20_kv20_kr10_0.2test",
                      ku=20, kv=20, kr=10,
                      # K = 100,
-                     max_epoch=1000, SGDstep=0.0001)
+                     max_epoch=1000, SGDstep=0.001)

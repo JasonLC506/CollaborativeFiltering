@@ -8,6 +8,8 @@ import numpy as np
 import matrixTool
 from MFMultiClass import ppl
 
+SCALE = 0.1
+
 class TD(object):
     def __init__(self):
         # model hyperparameters #
@@ -43,8 +45,8 @@ class TD(object):
         loss_valid = None
         for epoch in xrange(max_epoch):
             for samp in training.sample():
-                uid, iid, lid = samp
-                self.initialize(uid, iid)
+                # uid, iid, lid = samp
+                self.initialize(samp[0], samp[1])
                 # loss_single_before = self.lossSingle(samp)  ###
                 self.update(samp)
                 # loss_single_after = self.lossSingle(samp)   ###
@@ -64,8 +66,8 @@ class TD(object):
         return self
 
     def basicInitialize(self):
-        self.r = np.random.normal(0.0, 1.0, size = (self.L, self.kr))
-        self.c = np.random.normal(0.0, 1.0, size = (self.ku, self.kv, self.kr))
+        self.r = np.random.normal(0.0, SCALE, size = (self.L, self.kr))
+        self.c = np.random.normal(0.0, SCALE, size = (self.ku, self.kv, self.kr))
         return self
 
     def initialize(self, uid, iid, predict=False):
@@ -74,12 +76,12 @@ class TD(object):
             if predict:
                 self.u[uid] = self.u_avg
             else:
-                self.u[uid] = np.random.normal(0.0, 1.0, size = self.ku)
+                self.u[uid] = np.random.normal(0.0, SCALE, size = self.ku)
         if iid not in self.v:
             if predict:
                 self.v[iid] = self.v_avg
             else:
-                self.v[iid] = np.random.normal(0.0, 1.0, size = self.kv)
+                self.v[iid] = np.random.normal(0.0, SCALE, size = self.kv)
         return self
 
     def update(self, instance):
