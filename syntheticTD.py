@@ -5,6 +5,7 @@ synthesizing multiclass dyadic data
 
 import numpy as np
 from TDMultiClass import TDreconstruct
+import cPickle
 
 SCALE = 0.1
 
@@ -93,18 +94,18 @@ class TDsynthetic(object):
         else:
             return np.argmax(expm)
 
-    def modelPrint(self):
-        print "c", self.c
-        print "r", self.r
+    def modelPrint2File(self, filename):
+        with open(filename, "w") as f:
+            cPickle.dump({"u": self.u, "v": self.v, "r": self.r, "c": self.c}, f)
 
 if __name__ == "__main__":
     np.random.seed(2017)
-    N = 500
-    M = 500
+    N = 100
+    M = 100
     L = 3
-    ku = 100
-    kv = 100
-    kr = 2
+    ku = 20
+    kv = 20
+    kr = 10
     generator = TDsynthetic(N=N,M=M,L=L,ku=ku,kv=kv,kr=kr)
     generator.generate2file(1.0, "data/TDsynthetic_N%d_M%d_L%d_ku%d_kv%d_kr%d" % (N,M,L,ku,kv,kr))
-    generator.modelPrint()
+    generator.modelPrint2File("data/TDsynthetic_model_N%d_M%d_L%d_ku%d_kv%d_kr%d" % (N,M,L,ku,kv,kr))

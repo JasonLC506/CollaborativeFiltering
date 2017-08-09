@@ -7,6 +7,8 @@ in context of facebook emoticon rating, rating classes are fixed, given and smal
 import numpy as np
 from TDMultiClass import TD
 
+SCALE = 0.1
+
 class CD(TD):
     def __init__(self):
         TD.__init__(self)
@@ -33,12 +35,12 @@ class CD(TD):
             for samp in training.sample():
                 uid, iid, lid = samp
                 self.initialize(uid, iid)
-                loss_single_before = self.lossSingle(samp)  ###
+                # loss_single_before = self.lossSingle(samp)  ###
                 self.update(samp, cnt)
                 cnt += 1
-                loss_single_after = self.lossSingle(samp)   ###
-                if loss_single_after > loss_single_before:
-                    print loss_single_before, "to", loss_single_after
+                # loss_single_after = self.lossSingle(samp)   ###
+                # if loss_single_after > loss_single_before:
+                #     print loss_single_before, "to", loss_single_after
             self.averageEmbedding()
             loss_train = self.loss(training)
             loss_valid_new = self.loss(valid)
@@ -46,13 +48,13 @@ class CD(TD):
             print "after epoch ", epoch, "loss valid: ", loss_valid_new
             if loss_valid is not None and loss_valid_new > loss_valid:
                 print "overfitting in epoch: ", epoch
-                # break
+                break
             loss_valid = loss_valid_new
             # self.SGDstepUpdate(epoch)
         return self
 
     def basicInitialize(self):
-        self.r = np.random.normal(0.0, 1.0, size = (self.L, self.k))
+        self.r = np.random.normal(0.0, SCALE, size = (self.L, self.k))
         ### test ###
         self.delt_r_batch = np.zeros(self.r.shape, dtype = np.float64)
         # self.r = np.zeros([self.L, self.k])
@@ -79,35 +81,26 @@ class CD(TD):
     def update(self, instance, isamp):
         uid, iid, lid = instance
         m = np.tensordot(self.r, np.multiply(self.v[iid], self.u[uid]), axes = (1,0))
-        expm = np.exp(m)
-        expmsum = np.sum(expm)
-        mgrad = expm / expmsum
-        mgrad[lid] = mgrad[lid] - 1.0
-        mgrad = - mgrad
-        try:
-            assert abs(np.sum(mgrad)) < 1e-5
-        except:
-            print "mgrad error"
-            print mgrad
+        # expm = np.exp(m)
+        # expmsum = np.sum(expm)
+        # mgrad = expm / expmsum
+        mgrad = - m
+        mgrad[lid] = 1.0 + mgrad[lid]
+        # mgrad[lid] = mgrad[lid] - 1.0
+        # mgrad = - mgrad
         # gradient for embeddings #
         delt_u = np.tensordot(mgrad, np.multiply(self.r, self.v[iid]), axes = (0,0))
         delt_v = np.tensordot(mgrad, np.multiply(self.r, self.u[uid]), axes = (0,0))
         delt_r = np.outer(mgrad, np.multiply(self.u[uid], self.v[iid]))
-        ### test ###
-        rela_u = np.linalg.norm(delt_u)/np.linalg.norm(self.u[uid])
-        rela_v = np.linalg.norm(delt_v)/np.linalg.norm(self.v[iid])
-        rela_r = np.linalg.norm(delt_r)/np.linalg.norm(self.r)
-        if rela_u > 0.1 / self.SGDstep or rela_v > 0.1 / self.SGDstep or rela_r > 0.1 / self.SGDstep:
-            print "large step"
-            print rela_u
-            print rela_v
-            print rela_r
         # update #
         self.u[uid] += (self.SGDstep * (delt_u))
         self.v[iid] += (self.SGDstep * (delt_v))
         ### test ###
         self.r += (self.SGDstep * (delt_r))
-
+        # self.delt_r_batch += delt_r
+        # if (isamp + 1) % self.mini_batch == 0:
+        #     self.r += (self.SGDstep * self.delt_r_batch)
+        #     self.delt_r_batch = np.zeros(self.r.shape, dtype = np.float64)
         return self
 
     def predict(self, uid, iid, distribution = True):
@@ -119,3 +112,16 @@ class CD(TD):
             return expm / expmsum
         else:
             return np.argmax(expm)
+
+    def loss(self, test):
+        losssum = 0.0
+        Nsamp = 0
+        for samp in test.sample(random = False):
+            uid, iid, lid = samp
+            self.initialize(uid, iid, predict = True)
+            m = np.tensordot(self.r, np.multiply(self.v[iid], self.u[uid]), axes = (1,0))
+            m_true = np.zeros(self.L)
+            m_true[lid] = 1.0
+            losssum += np.sum(np.power((m - m_true),2.0))
+            Nsamp += 1
+        return losssum / Nsamp

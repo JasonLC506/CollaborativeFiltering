@@ -1,3 +1,4 @@
+import numpy as np
 from TDTensor import TDTensor
 from trainingDataGeneratorTensor import datageneratorTensor as datagenerator
 
@@ -18,7 +19,15 @@ def experiment(data_train, data_valid, data_test, ku, kv, kr, max_epoch = 10, SG
 
 def performance(test, model):
     mse = model.loss(test)
-    return mse
+    msre = 0.0
+    Nsamp = 0
+    for samp in test.sample(random = False):
+        uid, iid, lid, value = samp
+        value_pred = model.predict(uid, iid, lid)
+        msre += np.power((value - value_pred) / value, 2.0)
+        Nsamp += 1
+    msre = msre / Nsamp
+    return [mse, msre]
 
 if __name__ == "__main__":
     # print experiment(data_train = "data/synthetic_N500_M500_L3_K5_0.7train",
