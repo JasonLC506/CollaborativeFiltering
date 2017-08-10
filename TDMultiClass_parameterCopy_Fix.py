@@ -44,24 +44,34 @@ class TD(object):
         self.basicInitialize()
 
         # SGD #
-        loss_valid = None
+        loss_valid_old = None
         for epoch in xrange(max_epoch):
+            loss_train_old = self.loss(training)
+            loss_valid_old = self.loss(valid)
+            break
+            print "before epoch ", epoch, "loss training: ", loss_train_old
+            print "before epoch ", epoch, "loss valid: ", loss_valid_old
             for samp in training.sample():
                 self.update(samp)
             loss_train = self.loss(training)
             loss_valid_new = self.loss(valid)
             print "after epoch ", epoch, "loss training: ", loss_train
             print "after epoch ", epoch, "loss valid: ", loss_valid_new
-            if loss_valid is not None and loss_valid_new > loss_valid:
+            if loss_valid_old is not None and loss_valid_new > loss_valid_old:
                 print "overfitting in epoch: ", epoch
                 break
-            loss_valid = loss_valid_new
+            loss_valid_old = loss_valid_new
             # self.SGDstepUpdate(epoch)
 
         return self
 
     def basicInitialize(self):
-        with open("data")
+        with open("data/TDsynthetic_model_N100_M100_L3_ku20_kv20_kr10") as f:
+            paras = cPickle.load(f)
+        self.u = paras["u"]
+        self.v = paras["v"]
+        self.r = paras["r"]
+        self.c = paras["c"]
         return self
 
 
@@ -133,7 +143,7 @@ class TD(object):
         return perf
 
     def predict(self, uid, iid, distribution = True):
-        self.initialize(uid, iid, predict = True)
+        # self.initialize(uid, iid, predict = True)
         m = TDreconstruct(self.c, self.u[uid], self.v[iid], self.r)
         expm = np.exp(m)
         expmsum = np.sum(expm)

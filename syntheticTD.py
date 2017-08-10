@@ -92,7 +92,7 @@ class TDsynthetic(object):
         if distribution:
             return expm / expmsum
         else:
-            return np.argmax(expm)
+            return np.argmax(np.random.multinomial(1, expm / expmsum, size=1))
 
     def modelPrint2File(self, filename):
         with open(filename, "w") as f:
@@ -100,8 +100,8 @@ class TDsynthetic(object):
 
 if __name__ == "__main__":
     np.random.seed(2017)
-    N = 100
-    M = 100
+    N = 500
+    M = 500
     L = 3
     ku = 20
     kv = 20
