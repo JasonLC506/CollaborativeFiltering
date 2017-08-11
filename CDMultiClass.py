@@ -46,7 +46,7 @@ class CD(TD):
             print "after epoch ", epoch, "loss valid: ", loss_valid_new
             if loss_valid is not None and loss_valid_new > loss_valid:
                 print "overfitting in epoch: ", epoch
-                # break
+                break
             loss_valid = loss_valid_new
             # self.SGDstepUpdate(epoch)
         return self

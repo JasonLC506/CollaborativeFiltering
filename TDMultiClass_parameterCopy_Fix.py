@@ -48,9 +48,9 @@ class TD(object):
         for epoch in xrange(max_epoch):
             loss_train_old = self.loss(training)
             loss_valid_old = self.loss(valid)
-            break
             print "before epoch ", epoch, "loss training: ", loss_train_old
             print "before epoch ", epoch, "loss valid: ", loss_valid_old
+            break
             for samp in training.sample():
                 self.update(samp)
             loss_train = self.loss(training)
@@ -66,7 +66,7 @@ class TD(object):
         return self
 
     def basicInitialize(self):
-        with open("data/TDsynthetic_model_N100_M100_L3_ku20_kv20_kr10") as f:
+        with open("data/TDsynthetic_model_N500_M500_L3_ku20_kv20_kr10") as f:
             paras = cPickle.load(f)
         self.u = paras["u"]
         self.v = paras["v"]
