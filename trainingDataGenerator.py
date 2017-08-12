@@ -6,14 +6,17 @@ import numpy as np
 import ast
 
 Notation = {"userID": "POSTID", "itemID": "READERID", "labelID": "EMOTICON"} # transforming from posts notation to CF convention
-label_dict = {0: 0, 1: 1, 2: 2}
-
+# label_dict = {0: 0, 1: 1, 2: 2}
+label_dict = {}
+L = 100
+for i in range(L):
+    label_dict[i] = i
 class datagenerator(object):
     def __init__(self, datafile):
         # meta data #
         self.Nuser = 0
         self.Nitem = 0
-        self.Nlabel = 0
+        self.Nlabel = len(label_dict)
         self.Ntran = 0
         self.datafile = datafile
 
@@ -44,7 +47,7 @@ class datagenerator(object):
                 #     self.item_dict[itemID] = self.Nitem
                 #     self.Nitem += 1
                 if labelID not in self.label_dict:
-                    self.label_dict[labelID] = self.Nlabel
+                    self.label_dict[labelID] = labelID
                     self.Nlabel += 1
                     print "new label"
                 self.Ntran += 1

@@ -102,7 +102,7 @@ if __name__ == "__main__":
     np.random.seed(2017)
     N = 500
     M = 500
-    L = 3
+    L = 100
     ku = 20
     kv = 20
     kr = 10

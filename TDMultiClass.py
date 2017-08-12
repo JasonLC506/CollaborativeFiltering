@@ -58,7 +58,7 @@ class TD(object):
             loss_valid_new = self.loss(valid)
             print "after epoch ", epoch, "loss training: ", loss_train
             print "after epoch ", epoch, "loss valid: ", loss_valid_new
-            if loss_valid is not None and loss_valid_new > loss_valid:
+            if loss_valid is not None and loss_valid_new >= loss_valid:
                 print "overfitting in epoch: ", epoch
                 break
             loss_valid = loss_valid_new

@@ -7,14 +7,13 @@ in context of facebook emoticon rating, rating classes are fixed, given and smal
 import numpy as np
 from TDMultiClass import TD
 
-SCALE = 0.01
+SCALE = 1.0
 
 class CD(TD):
     def __init__(self):
         TD.__init__(self)
         # model hyperparameters #
         self.k = 0
-        self.SCALE = SCALE
 
         # # fitting intermediate #
         # self.delt_r_batch = None
@@ -49,19 +48,20 @@ class CD(TD):
             print "after epoch ", epoch, "loss valid: ", loss_valid_new
             if loss_valid is not None and loss_valid_new > loss_valid:
                 print "overfitting in epoch: ", epoch
-                break
+                # break
             loss_valid = loss_valid_new
             # self.SGDstepUpdate(epoch)
         return self
 
     def basicInitialize(self):
-        self.r = np.random.normal(0.0, self.SCALE, size = (self.L, self.k))
+        self.r = np.random.normal(0.0, SCALE, size = (self.L, self.k))
         ### test ###
-        self.delt_r_batch = np.zeros(self.r.shape, dtype = np.float64)
-        # self.r = np.zeros([self.L, self.k])
-        # step = self.k / self.L
-        # for i in range(self.L):
-        #     self.r[i, i*step:(i+1)*step] = 1.0
+        # self.delt_r_batch = np.zeros(self.r.shape, dtype = np.float64)
+        # self.r = np.ones([self.L, self.k], dtype=np.float64)
+        step = self.k / self.L
+        for i in range(self.L):
+            self.r[i, (i+1)*step:self.k] = 0.0
+            self.r[i, 0:i*step] = 0.0
         # print "self.r", self.r
         return self
 
@@ -71,12 +71,12 @@ class CD(TD):
             if predict:
                 self.u[uid] = self.u_avg
             else:
-                self.u[uid] = np.random.normal(0.0, self.SCALE, size = self.k)
+                self.u[uid] = np.random.normal(0.0, SCALE, size = self.k)
         if iid not in self.v:
             if predict:
                 self.v[iid] = self.v_avg
             else:
-                self.v[iid] = np.random.normal(0.0, self.SCALE, size = self.k)
+                self.v[iid] = np.random.normal(0.0, SCALE, size = self.k)
         return self
 
     def update(self, instance, isamp):
@@ -108,8 +108,12 @@ class CD(TD):
         # update #
         self.u[uid] += (self.SGDstep * (delt_u))
         self.v[iid] += (self.SGDstep * (delt_v))
-        ### test ###
-        self.r += (self.SGDstep * (delt_r))
+        # self.r += (self.SGDstep * (delt_r))
+        # ### test ###
+        # step = self.k / self.L
+        # for i in range(self.L):
+        #     self.r[i, (i+1)*step:self.k] = 0.0
+        #     self.r[i, 0:i*step] = 0.0
 
         return self
 

@@ -6,7 +6,7 @@ Rendle, S. and Schmidt-Thieme, L., 2010, February. Pairwise interaction tensor f
 import numpy as np
 from CDMultiClass import CD
 
-SCALE = 1.0
+SCALE = 0.01
 
 class PITF(CD):
     def __init__(self):
@@ -14,10 +14,11 @@ class PITF(CD):
         self.r_u = None
         self.r_v = None
         self.lamda = 0.000
+        self.SCALE = SCALE
 
     def basicInitialize(self):
-        self.r_u = np.random.normal(0.0, SCALE, size = (self.L, self.k))
-        self.r_v = np.random.normal(0.0, SCALE, size = (self.L, self.k))
+        self.r_u = np.random.normal(0.0, self.SCALE, size = (self.L, self.k))
+        self.r_v = np.random.normal(0.0, self.SCALE, size = (self.L, self.k))
 
     def update(self, instance, isamp):
         uid, iid, lid = instance

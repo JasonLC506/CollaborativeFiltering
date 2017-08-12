@@ -6,7 +6,5 @@ import numpy as np
 from datetime import datetime
 from datetime import timedelta
 
-a = np.arange(3)
-b = np.arange(4)
-print np.outer(a,b)
-print 0.2 * a
+a = np.array([0.1, 0.3, -0.2, -0.4])
+print np.argmax(a)
