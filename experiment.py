@@ -1,10 +1,12 @@
 import numpy as np
-# from MFMultiClass import MF
+from MFMultiClass import MF
 from TDMultiClass import TD
 # from CDMultiClass import CD
 # from PITF import PITF
+# from TDMultiClass_square01 import TD
 # from CDMultiClass_GradientDescent import CD
 # from CDMultiClass_MFreduced import CD
+from CDMultiClass_square01 import CD
 # from TDMultiClass_parameterCopy_Fix import TD
 from trainingDataGenerator import datagenerator
 
@@ -46,15 +48,15 @@ def performance(test, model):
 
 if __name__ == "__main__":
     np.random.seed(2017)
-    # print experiment(data_train = "data/synthetic_N500_M500_L3_K5_0.7train",
-    #                  data_valid = "data/synthetic_N500_M500_L3_K5_0.1valid",
-    #                  data_test = "data/synthetic_N500_M500_L3_K5_0.2test",
-    #                  # ku = 15, kv = 15, kr = 15,
-    #                  K = 15,
-    #                  max_epoch = 1000, SGDstep = 0.001)
-    print experiment(data_train="data/TDsynthetic_N500_M500_L100_ku20_kv20_kr10_0.7train",
-                     data_valid="data/TDsynthetic_N500_M500_L100_ku20_kv20_kr10_0.1valid",
-                     data_test="data/TDsynthetic_N500_M500_L100_ku20_kv20_kr10_0.2test",
-                     ku=40, kv=40, kr=20,
+    print experiment(data_train = "data/synthetic_N500_M500_L3_K5_0.7train",
+                     data_valid = "data/synthetic_N500_M500_L3_K5_0.1valid",
+                     data_test = "data/synthetic_N500_M500_L3_K5_0.2test",
+                     ku = 15, kv = 15, kr = 5,
                      # K = 15,
-                     max_epoch=1000, SGDstep=0.001)
+                     max_epoch = 1000, SGDstep = 0.01)
+    # print experiment(data_train="data/TDsynthetic_N500_M500_L3_ku20_kv20_kr10_0.7train",
+    #                  data_valid="data/TDsynthetic_N500_M500_L3_ku20_kv20_kr10_0.1valid",
+    #                  data_test="data/TDsynthetic_N500_M500_L3_ku20_kv20_kr10_0.2test",
+    #                  ku=20, kv=20, kr=10,
+    #                  # K = 100,
+    #                  max_epoch=1000, SGDstep=0.01)

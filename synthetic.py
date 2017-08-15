@@ -15,6 +15,8 @@ class MFsynthetic(object):
         self.parameter()
         self.dyaddict = {}
 
+        self.bayesian_error = []
+
     def parameter(self):
         self.u = np.random.random(self.N*self.L*self.K).reshape([self.N, self.L, self.K]) * 6.0 - 3.0
         self.v = np.random.random(self.M*self.L*self.K).reshape([self.M, self.L, self.K]) * 6.0 - 3.0
@@ -48,7 +50,8 @@ class MFsynthetic(object):
                     self.dyaddict[dyadid] = cnt
                     expprod = np.exp(np.sum(np.multiply(self.u[uid], self.v[iid]), axis=1))
                     expprodsum = np.sum(expprod)
-                    lid = np.argmax(np.random.multinomial(1, expprod/expprodsum, size = 1))
+                    lid = np.argmax(np.random.multinomial(1, expprod / expprodsum, size=1))
+                    self.bayesian_error.append((np.sum(expprod) - expprod[lid]) / expprodsum)
                     yield [uid, iid, lid]
                     cnt += 1
         else:
@@ -56,7 +59,8 @@ class MFsynthetic(object):
                 for iid in range(self.M):
                     expprod = np.exp(np.sum(np.multiply(self.u[uid], self.v[iid]), axis=1))
                     expprodsum = np.sum(expprod)
-                    lid = np.argmax(np.random.multinomial(1, expprod/expprodsum, size = 1))
+                    lid = np.argmax(np.random.multinomial(1, expprod / expprodsum, size=1))
+                    self.bayesian_error.append((np.sum(expprod) - expprod[lid]) / expprodsum)
                     yield [uid, iid, lid]
 
     def generate2file(self, fraction, filename):
@@ -71,9 +75,11 @@ class MFsynthetic(object):
 
 if __name__ == "__main__":
     np.random.seed(2017)
-    N = 20000
-    M = 10000000
+    N = 500
+    M = 500
     L = 3
     K = 5
     generator = MFsynthetic(N = N, M = M, L = L, K = K) # based on [1]
-    generator.generate2file(0.002, "data/synthetic_N%d_M%d_L%d_K%d" % (N,M,L,K))
+    generator.generate2file(1.0, "data/synthetic_N%d_M%d_L%d_K%d" % (N,M,L,K))
+    bayesian_error = np.array(generator.bayesian_error)
+    print np.mean(bayesian_error), np.std(bayesian_error)

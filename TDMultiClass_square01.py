@@ -46,13 +46,8 @@ class TD(object):
         loss_valid = None
         for epoch in xrange(max_epoch):
             for samp in training.sample():
-                # uid, iid, lid = samp
                 self.initialize(samp[0], samp[1])
-                # loss_single_before = self.lossSingle(samp)  ###
                 self.update(samp)
-                # loss_single_after = self.lossSingle(samp)   ###
-                # if loss_single_after > loss_single_before:
-                #     print loss_single_before, "to", loss_single_after
             self.averageEmbedding()
             loss_train = self.loss(training)
             loss_valid_new = self.loss(valid)
@@ -60,7 +55,7 @@ class TD(object):
             print "after epoch ", epoch, "loss valid: ", loss_valid_new
             if loss_valid is not None and loss_valid_new >= loss_valid:
                 print "overfitting in epoch: ", epoch
-                # break
+                break
             loss_valid = loss_valid_new
             # self.SGDstepUpdate(epoch)
 
@@ -93,16 +88,8 @@ class TD(object):
         ## calculate single gradient ##
         # intermediate #
         m = TDreconstruct(self.c, self.u[uid], self.v[iid], self.r)
-        expm = np.exp(m)
-        expmsum = np.sum(expm)
-        mgrad = expm / expmsum
-        mgrad[lid] = mgrad[lid] - 1.0
-        mgrad = - mgrad
-        ### test ###
-        # print "m", m
-        # print "mgrad", mgrad
-        # print "lid", lid
-        ###############
+        mgrad = -m
+        mgrad[lid] = 1.0 + mgrad[lid]
         # gradient for embeddings #
         delt_u = np.tensordot(a = mgrad, axes = (0,1),
                               b = np.tensordot(a = self.v[iid], axes = (0,1),
@@ -131,10 +118,6 @@ class TD(object):
         self.v[iid] += (self.SGDstep * (delt_v - self.lamda * self.v[iid]))
         self.c += (self.SGDstep * (delt_c - self.lamda * self.c))
         self.r += (self.SGDstep * (delt_r - self.lamda * self.r))
-
-        ### test ###
-        # m = TDreconstruct(self.c, self.u[uid], self.v[iid], self.r)
-        # print "m after update", m
         return self
 
     def averageEmbedding(self):
@@ -149,17 +132,13 @@ class TD(object):
         nsamp = 0
         for samp in test.sample(random = False):
             uid, iid, lid = samp
-            predprob = self.predict(uid, iid, distribution = True)
-            perf = ppl(predprob = predprob, truelabel = lid)
-            losssum += perf
+            self.initialize(uid, iid, predict=True)
+            m = TDreconstruct(self.c, self.u[uid], self.v[iid], self.r)
+            m_true = np.zeros(self.L)
+            m_true[lid] = 1.0
+            losssum += np.sum(np.power((m - m_true), 2.0))
             nsamp += 1
         return losssum/nsamp
-
-    def lossSingle(self, instance):
-        uid, iid, lid = instance
-        predprob = self.predict(uid, iid, distribution = True)
-        perf = ppl(predprob = predprob, truelabel = lid)
-        return perf
 
     def predict(self, uid, iid, distribution = True):
         self.initialize(uid, iid, predict = True)

@@ -7,7 +7,7 @@ in context of facebook emoticon rating, rating classes are fixed, given and smal
 import numpy as np
 from TDMultiClass import TD
 
-SCALE = 0.01
+SCALE = 0.1
 
 class CD(TD):
     def __init__(self):
@@ -49,7 +49,7 @@ class CD(TD):
             print "after epoch ", epoch, "loss valid: ", loss_valid_new
             if loss_valid is not None and loss_valid_new > loss_valid:
                 print "overfitting in epoch: ", epoch
-                break
+                # break
             loss_valid = loss_valid_new
             # self.SGDstepUpdate(epoch)
         return self
@@ -87,30 +87,37 @@ class CD(TD):
         mgrad = expm / expmsum
         mgrad[lid] = mgrad[lid] - 1.0
         mgrad = - mgrad
-        try:
-            assert abs(np.sum(mgrad)) < 1e-5
-        except:
-            print "mgrad error"
-            print mgrad
+        ### test ###
+        # print "m", m
+        # print "mgrad", mgrad
+        # print "lid", lid
+        # print "u", self.u[uid]
+        # print "v", self.v[iid]
+        # print "r", self.r
+        ###############
         # gradient for embeddings #
         delt_u = np.tensordot(mgrad, np.multiply(self.r, self.v[iid]), axes = (0,0))
         delt_v = np.tensordot(mgrad, np.multiply(self.r, self.u[uid]), axes = (0,0))
         delt_r = np.outer(mgrad, np.multiply(self.u[uid], self.v[iid]))
         ### test ###
-        rela_u = np.linalg.norm(delt_u)/np.linalg.norm(self.u[uid])
-        rela_v = np.linalg.norm(delt_v)/np.linalg.norm(self.v[iid])
-        rela_r = np.linalg.norm(delt_r)/np.linalg.norm(self.r)
-        if rela_u > 0.1 / self.SGDstep or rela_v > 0.1 / self.SGDstep or rela_r > 0.1 / self.SGDstep:
-            print "large step"
-            print rela_u
-            print rela_v
-            print rela_r
+        # rela_u = np.linalg.norm(delt_u)/np.linalg.norm(self.u[uid])
+        # rela_v = np.linalg.norm(delt_v)/np.linalg.norm(self.v[iid])
+        # rela_r = np.linalg.norm(delt_r)/np.linalg.norm(self.r)
+        # if rela_u > 0.1 / self.SGDstep or rela_v > 0.1 / self.SGDstep or rela_r > 0.1 / self.SGDstep:
+        #     print "large step"
+        #     print rela_u
+        #     print rela_v
+        #     print rela_r
         # update #
         self.u[uid] += (self.SGDstep * (delt_u))
         self.v[iid] += (self.SGDstep * (delt_v))
-        ### test ###
         self.r += (self.SGDstep * (delt_r))
-
+        ### test ###
+        # m = np.tensordot(self.r, np.multiply(self.v[iid], self.u[uid]), axes=(1, 0))
+        # print "m after update", m
+        # print "u after update", self.u[uid]
+        # print "v after update", self.v[iid]
+        # print "r after update", self.r
         return self
 
     def predict(self, uid, iid, distribution = True):

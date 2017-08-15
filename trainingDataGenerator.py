@@ -8,7 +8,7 @@ import ast
 Notation = {"userID": "POSTID", "itemID": "READERID", "labelID": "EMOTICON"} # transforming from posts notation to CF convention
 # label_dict = {0: 0, 1: 1, 2: 2}
 label_dict = {}
-L = 100
+L = 3
 for i in range(L):
     label_dict[i] = i
 class datagenerator(object):

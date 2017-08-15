@@ -7,7 +7,7 @@ import numpy as np
 from TDMultiClass import TDreconstruct
 import cPickle
 
-SCALE = 0.1
+SCALE = 1.0
 
 class TDsynthetic(object):
     def __init__(self, N, M, L, ku, kv, kr):
@@ -32,6 +32,9 @@ class TDsynthetic(object):
 
         # model setup #
         self.parameter()
+
+        # bayesian error #
+        self.bayesian_error = []
 
     def parameter(self):
         self.u = np.random.normal(scale=SCALE, size = self.N * self.ku).reshape([self.N, self.ku])
@@ -92,7 +95,9 @@ class TDsynthetic(object):
         if distribution:
             return expm / expmsum
         else:
-            return np.argmax(np.random.multinomial(1, expm / expmsum, size=1))
+            lid = np.argmax(np.random.multinomial(1, expm / expmsum, size=1))
+            self.bayesian_error.append((np.sum(expm) - expm[lid])/expmsum)
+            return lid
 
     def modelPrint2File(self, filename):
         with open(filename, "w") as f:
@@ -102,10 +107,12 @@ if __name__ == "__main__":
     np.random.seed(2017)
     N = 500
     M = 500
-    L = 100
+    L = 3
     ku = 20
     kv = 20
     kr = 10
     generator = TDsynthetic(N=N,M=M,L=L,ku=ku,kv=kv,kr=kr)
     generator.generate2file(1.0, "data/TDsynthetic_N%d_M%d_L%d_ku%d_kv%d_kr%d" % (N,M,L,ku,kv,kr))
     generator.modelPrint2File("data/TDsynthetic_model_N%d_M%d_L%d_ku%d_kv%d_kr%d" % (N,M,L,ku,kv,kr))
+    bayesian_error = np.array(generator.bayesian_error)
+    print np.mean(bayesian_error), np.std(bayesian_error)

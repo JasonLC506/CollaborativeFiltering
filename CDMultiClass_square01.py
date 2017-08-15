@@ -48,7 +48,7 @@ class CD(TD):
             print "after epoch ", epoch, "loss valid: ", loss_valid_new
             if loss_valid is not None and loss_valid_new > loss_valid:
                 print "overfitting in epoch: ", epoch
-                break
+                # break
             loss_valid = loss_valid_new
             # self.SGDstepUpdate(epoch)
         return self
@@ -70,25 +70,28 @@ class CD(TD):
             if predict:
                 self.u[uid] = self.u_avg
             else:
-                self.u[uid] = np.random.normal(0.0, 1.0, size = self.k)
+                self.u[uid] = np.random.normal(0.0, SCALE, size = self.k)
         if iid not in self.v:
             if predict:
                 self.v[iid] = self.v_avg
             else:
-                self.v[iid] = np.random.normal(0.0, 1.0, size = self.k)
+                self.v[iid] = np.random.normal(0.0, SCALE, size = self.k)
         return self
 
     def update(self, instance, isamp):
         uid, iid, lid = instance
         m = np.tensordot(self.r, np.multiply(self.v[iid], self.u[uid]), axes = (1,0))
-        # expm = np.exp(m)
-        # expmsum = np.sum(expm)
-        # mgrad = expm / expmsum
+
         mgrad = - m
         mgrad[lid] = 1.0 + mgrad[lid]
-        # mgrad[lid] = mgrad[lid] - 1.0
-        # mgrad = - mgrad
-        # gradient for embeddings #
+        ## test ###
+        # print "m", m
+        # print "mgrad", mgrad
+        # print "lid", lid
+        # print "u", self.u[uid]
+        # print "v", self.v[iid]
+        # print "r", self.r
+        ###############
         delt_u = np.tensordot(mgrad, np.multiply(self.r, self.v[iid]), axes = (0,0))
         delt_v = np.tensordot(mgrad, np.multiply(self.r, self.u[uid]), axes = (0,0))
         delt_r = np.outer(mgrad, np.multiply(self.u[uid], self.v[iid]))
@@ -97,10 +100,12 @@ class CD(TD):
         self.v[iid] += (self.SGDstep * (delt_v))
         ### test ###
         self.r += (self.SGDstep * (delt_r))
-        # self.delt_r_batch += delt_r
-        # if (isamp + 1) % self.mini_batch == 0:
-        #     self.r += (self.SGDstep * self.delt_r_batch)
-        #     self.delt_r_batch = np.zeros(self.r.shape, dtype = np.float64)
+        ### test ###
+        # m = np.tensordot(self.r, np.multiply(self.v[iid], self.u[uid]), axes=(1, 0))
+        # print "m after update", m
+        # print "u after update", self.u[uid]
+        # print "v after update", self.v[iid]
+        # print "r after update", self.r
         return self
 
     def predict(self, uid, iid, distribution = True):
