@@ -26,11 +26,12 @@ class MCCF(object):
         self.logfilename = "MCCF"   ## model dependent
         self.modelconfigurefile = "MCCF_config"     ## model dependent
 
-    def fit(self, training, valid, model_hyperparameters, max_epoch = 1000, SGDstep = 0.001):
+    def fit(self, training, valid, model_hyperparameters, max_epoch = 1000, SGDstep = 0.001, SCALE = 0.1):
         # model independent #
         self.set_model_hyperparameters(model_hyperparameters)
         self.L = training.L()
         self.SGDstep = SGDstep
+        self.SCALE = SCALE
 
         with open(self.logfilename, "a") as logf:
             logf.write("model_hyperparameters: " + str(model_hyperparameters) + "\n")
@@ -58,9 +59,11 @@ class MCCF(object):
                 with open(self.logfilename, "a") as logf:
                     logf.write("overfitting in epoch: %d\n" % epoch)
             else:
-                loss_valid_minimum = loss_valid_new
-                self.modelconfigStore()
+                if loss_valid_minimum is None or loss_valid_new < loss_valid_minimum:
+                    loss_valid_minimum = loss_valid_new
+                    self.modelconfigStore()
             loss_valid = loss_valid_new
+        self.modelconfigStore(self.modelconfigurefile + "end_epoch" + str(max_epoch))
         return self
 
     def set_model_hyperparameters(self, model_hyperparameters):
@@ -111,7 +114,7 @@ class MCCF(object):
         print "predict not defined"
         return []
 
-    def modelconfigStore(self):
+    def modelconfigStore(self, modelconfigurefile = None):
         ## model dependent ##
         """
         store model config in self.modelconfigurefile
