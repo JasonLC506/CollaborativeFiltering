@@ -11,5 +11,5 @@ def summary(data):
     return class_distribution
 
 if __name__ == "__main__":
-    data = datagenerator("data/PITFsynthetic_N500_M500_L3_K15")
+    data = datagenerator("data/synthetic_N500_M500_L3_K5")
     summary(data)

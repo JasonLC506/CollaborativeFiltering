@@ -52,33 +52,52 @@ def experiement(data_train, data_valid, data_test, method, hyperparameters, max_
 
 if __name__ == "__main__":
     np.random.seed(2017)
-
-    method = NN1Layer
-    hyperparameters = [15]
-    datafile = "data/PITFsynthetic_N500_M500_L3_K15"
+    datafile = "data/TDsynthetic_N500_M500_L3_ku15_kv15_kr5"
     data_train = datafile + "_0.7train"
     data_valid = datafile + "_0.1valid"
     data_test = datafile + "_0.2test"
-    max_epoch = 100
+    max_epoch = 500
     SGDstep = 0.01
     SCALE = 0.1
 
-    ## only fit model ##
-    # print fit(data_train = data_train,
-    #           data_valid = data_valid,
-    #           method = method,
-    #           hyperparameters = hyperparameters,
-    #           max_epoch = max_epoch, SGDstep = SGDstep, SCALE = SCALE)
+    # methods_list = [MultiMF, TD, CD]
+    # method_names = ["MultiMF", "TD", "CD"]
+    # hyperparameters_list_list = [[[3], [5], [15]],
+    #                         [[9,9,3], [15,15,5], [45,45,15]],
+    #                         [[9], [15], [45]]]
+    method_names = ["MultiMF"]
+    methods_list = [MultiMF]
+    hyperparameters_list_list =[[[5]]]
 
-    ## only check model performance ##
-    print performance(data_test = data_test,
-                      method = method,
-                      modelconfigurefile = "modelconfigures/NN1Layer_config_PITFsynthetic_N500_M500_L3_K15_0.7train[15]_SGDstep0.01_SCALE0.1")
+    # method = NN1Layer
+    # hyperparameters = [15]
 
-    ## fit & performance check ##
-    # print experiement(data_train = data_train,
-    #                   data_valid = data_valid,
-    #                   data_test = data_test,
-    #                   method = method,
-    #                   hyperparameters = hyperparameters,
-    #                   max_epoch = max_epoch, SGDstep = SGDstep, SCALE = SCALE)
+    for i in range(len(methods_list)):
+        method = methods_list[i]
+        method_name = method_names[i]
+        hyperparameters_list = hyperparameters_list_list[i]
+        for hyperparameters in hyperparameters_list:
+            print method_name
+            print "hyperparameters =", hyperparameters
+
+            # only fit model ##
+            # print fit(data_train = data_train,
+            #           data_valid = data_valid,
+            #           method = method,
+            #           hyperparameters = hyperparameters,
+            #           max_epoch = max_epoch, SGDstep = SGDstep, SCALE = SCALE)
+
+            ## only check model performance ##
+
+            # print performance(data_test = data_test,
+            #                   method = method,
+            #                   modelconfigurefile="modelconfigures/" + method_name +"_config_TDsynthetic_N500_M500_L3_ku15_kv15_kr5_0.7train" + str(hyperparameters) +"_SGDstep0.01_SCALE0.1")
+                              # modelconfigurefile = "modelconfigures/NN1Layer_config_TDsynthetic_N500_M500_L3_K15_0.7train[15]_SGDstep0.01_SCALE0.1")
+
+            ## fit & performance check ##
+            print experiement(data_train = data_train,
+                              data_valid = data_valid,
+                              data_test = data_test,
+                              method = method,
+                              hyperparameters = hyperparameters,
+                              max_epoch = max_epoch, SGDstep = SGDstep, SCALE = SCALE)

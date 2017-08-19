@@ -4,10 +4,10 @@ synthesizing multiclass dyadic data
 """
 
 import numpy as np
-from TDMultiClass import TDreconstruct
+from TD import TDreconstruct
 import cPickle
 
-SCALE = 1.0
+SCALE = 0.75
 
 class TDsynthetic(object):
     def __init__(self, N, M, L, ku, kv, kr):
@@ -108,9 +108,9 @@ if __name__ == "__main__":
     N = 500
     M = 500
     L = 3
-    ku = 20
-    kv = 20
-    kr = 10
+    ku = 15
+    kv = 15
+    kr = 5
     generator = TDsynthetic(N=N,M=M,L=L,ku=ku,kv=kv,kr=kr)
     generator.generate2file(1.0, "data/TDsynthetic_N%d_M%d_L%d_ku%d_kv%d_kr%d" % (N,M,L,ku,kv,kr))
     generator.modelPrint2File("data/TDsynthetic_model_N%d_M%d_L%d_ku%d_kv%d_kr%d" % (N,M,L,ku,kv,kr))

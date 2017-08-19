@@ -1,15 +1,16 @@
 from matplotlib import pyplot as plt
 import numpy as np
 
-filename = "logs/CD_synthetic_N500_M500_L3_K5_0.7train"
+filename = "logs/MultiMF_TDsynthetic_N500_M500_L3_ku15_kv15_kr5_0.7train"
 
-pattern = {"model_hyperparameters": [9], "SGDstep": 0.01, "SCALE": 0.1}
+pattern = {"model_hyperparameters": [10], "SGDstep": 0.01, "SCALE": 0.1}
 
 loss_train = []
 loss_valid = []
 title = ""
 
 matched = True
+data_collection = False
 
 with open(filename, "r") as f:
     for line in f:
@@ -17,6 +18,8 @@ with open(filename, "r") as f:
         print perf
 
         if "model_hyperparameters:" in perf:
+            if data_collection:
+                break
             matched = True
             if str(pattern["model_hyperparameters"]) in line and matched:
                 title += line.rstrip("\n") + "_"
@@ -31,12 +34,13 @@ with open(filename, "r") as f:
                 title = ""
         if "SCALE:" in perf:
             if str(pattern["SCALE"]) in line and matched:
-                title += line.rstrip("\n") + "_"
+                title += line.rstrip("\n")
             else:
                 matched = False
                 title = ""
         if not matched:
             continue
+        data_collection = True
         if "training:" in perf:
             loss_train.append(float(perf[-1]))
         if "valid:" in perf:
