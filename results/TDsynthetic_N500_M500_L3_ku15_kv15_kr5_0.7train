@@ -1,0 +1,47 @@
+    np.seed(2017)
+    Bayesian error (mean, std): 0.127244445427 0.226137536969
+
+    MultiMF
+    hyperparameters = [3]
+    model successfully loaded from modelconfigures/MultiMF_config_TDsynthetic_N500_M500_L3_ku15_kv15_kr5_0.7train[3]_SGDstep0.01_SCALE0.1
+    [0.64254055928682996, 0.7102674823077846]
+
+    hyperparameters = [5]
+    model successfully loaded from modelconfigures/MultiMF_config_TDsynthetic_N500_M500_L3_ku15_kv15_kr5_0.7train[5]_SGDstep0.01_SCALE0.1
+    [0.4295117023969206, 0.8159809683739154]
+
+    hyperparameters = [10]
+    model successfully loaded from modelconfigures/MultiMF_config_TDsynthetic_N500_M500_L3_ku15_kv15_kr5_0.7train[10]_SGDstep0.01_SCALE0.1
+    [0.33684671641979663, 0.8532045899804086]
+
+    hyperparameters = [15]
+    model successfully loaded from modelconfigures/MultiMF_config_TDsynthetic_N500_M500_L3_ku15_kv15_kr5_0.7train[15]_SGDstep0.01_SCALE0.1
+    [0.34004984439890396, 0.8522450121946343]
+
+
+    TD
+    hyperparameters = [9, 9, 3]
+    model successfully loaded from modelconfigures/TD_config_TDsynthetic_N500_M500_L3_ku15_kv15_kr5_0.7train[9, 9, 3]_SGDstep0.01_SCALE0.1
+    [0.58653559370818109, 0.7372955899404262]
+
+    hyperparameters = [15, 15, 5]
+    model successfully loaded from modelconfigures/TD_config_TDsynthetic_N500_M500_L3_ku15_kv15_kr5_0.7train[15, 15, 5]_SGDstep0.01_SCALE0.1
+    [0.34151407608485651, 0.8557634640758066]
+
+    hyperparameters = [45, 45, 15]
+    model successfully loaded from modelconfigures/TD_config_TDsynthetic_N500_M500_L3_ku15_kv15_kr5_0.7train[45, 45, 15]_SGDstep0.01_SCALE0.1
+    [0.40791031350415591, 0.8323137819359482]
+
+
+    CD
+    hyperparameters = [9]
+    model successfully loaded from modelconfigures/CD_config_TDsynthetic_N500_M500_L3_ku15_kv15_kr5_0.7train[9]_SGDstep0.01_SCALE0.1
+    [0.60450701681625874, 0.7278797329175163]
+
+    hyperparameters = [15]
+    model successfully loaded from modelconfigures/CD_config_TDsynthetic_N500_M500_L3_ku15_kv15_kr5_0.7train[15]_SGDstep0.01_SCALE0.1
+    [0.39251305534536102, 0.8342129463036264]
+
+    hyperparameters = [45]
+    model successfully loaded from modelconfigures/CD_config_TDsynthetic_N500_M500_L3_ku15_kv15_kr5_0.7train[45]_SGDstep0.01_SCALE0.1
+    [0.40771233234884058, 0.8309943624805086]

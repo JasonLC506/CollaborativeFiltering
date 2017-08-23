@@ -1,25 +1,44 @@
 """
-based on [1] in MFMultiClass
+based on PITF
+synthesizing multiclass dyadic data
 """
-import numpy as np
 
-class MFsynthetic(object):
+import numpy as np
+import cPickle
+
+SCALE = 1.0
+
+class PITFsynthetic(object):
     def __init__(self, N, M, L, K):
+        # data size #
         self.N = N
         self.M = M
         self.L = L
-        self.K = K
 
+        # intrinsic latent size #
+        self.k = K
+
+        # model parameters #
         self.u = None
         self.v = None
-        self.parameter()
+        self.r_u = None
+        self.r_v = None
+
+        # intermediate storage #
         self.dyaddict = {}
 
+        # model setup #
+        self.parameter()
+
+        # bayesian error #
         self.bayesian_error = []
 
     def parameter(self):
-        self.u = np.random.random(self.N*self.L*self.K).reshape([self.N, self.L, self.K]) * 6.0 - 3.0
-        self.v = np.random.random(self.M*self.L*self.K).reshape([self.M, self.L, self.K]) * 6.0 - 3.0
+        self.u = np.random.normal(scale=SCALE, size = self.N * self.k).reshape([self.N, self.k])
+        self.v = np.random.normal(scale=SCALE, size = self.M * self.k).reshape([self.M, self.k])
+        self.r_u = np.random.normal(scale=SCALE, size = self.L * self.k).reshape([self.L, self.k])
+        self.r_v = np.random.normal(scale=SCALE, size=self.L * self.k).reshape([self.L, self.k])
+        return self
 
     def generate(self, fraction, MemorySampleSize = 1e+7):
         Nsamp = self.N * self.M * fraction
@@ -48,19 +67,13 @@ class MFsynthetic(object):
                     continue
                 else:
                     self.dyaddict[dyadid] = cnt
-                    expprod = np.exp(np.sum(np.multiply(self.u[uid], self.v[iid]), axis=1))
-                    expprodsum = np.sum(expprod)
-                    lid = np.argmax(np.random.multinomial(1, expprod / expprodsum, size=1))
-                    self.bayesian_error.append((np.sum(expprod) - expprod[lid]) / expprodsum)
+                    lid = self._singleGenerate(uid, iid, distribution = False)
                     yield [uid, iid, lid]
                     cnt += 1
         else:
             for uid in range(self.N):
                 for iid in range(self.M):
-                    expprod = np.exp(np.sum(np.multiply(self.u[uid], self.v[iid]), axis=1))
-                    expprodsum = np.sum(expprod)
-                    lid = np.argmax(np.random.multinomial(1, expprod / expprodsum, size=1))
-                    self.bayesian_error.append((np.sum(expprod) - expprod[lid]) / expprodsum)
+                    lid = self._singleGenerate(uid, iid, distribution = False)
                     yield [uid, iid, lid]
 
     def generate2file(self, fraction, filename):
@@ -72,14 +85,22 @@ class MFsynthetic(object):
                 f.write(str(transaction) + "\n")
         return self
 
+    def _singleGenerate(self, uid, iid, distribution = False):
+        m = np.tensordot(self.r_u, self.u[uid], axes=(1, 0)) + np.tensordot(self.r_v, self.v[iid], axes=(1, 0))
+        return np.argmax(m)
+
+    def modelPrint2File(self, filename):
+        with open(filename, "w") as f:
+            cPickle.dump({"u": self.u, "v": self.v, "r_u": self.r_u, "r_v": self.r_v}, f)
 
 if __name__ == "__main__":
     np.random.seed(2017)
     N = 500
     M = 500
     L = 3
-    K = 5
-    generator = MFsynthetic(N = N, M = M, L = L, K = K) # based on [1]
-    generator.generate2file(1.0, "data/synthetic_N%d_M%d_L%d_K%d_new" % (N,M,L,K))
+    K = 15
+    generator = PITFsynthetic(N=N,M=M,L=L,K = K)
+    generator.generate2file(1.0, "data/PITFsynthetic_N%d_M%d_L%d_K%d" % (N,M,L,K))
+    generator.modelPrint2File("data/PITFsynthetic_model_N%d_M%d_L%d_K%d" % (N,M,L,K))
     bayesian_error = np.array(generator.bayesian_error)
     print np.mean(bayesian_error), np.std(bayesian_error)

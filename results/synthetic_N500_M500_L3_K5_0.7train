@@ -1,0 +1,58 @@
+    np.random.seed(2017)
+    Bayesian error (mean, std): 0.122112462856 0.221389230597
+
+    method = MultiMF
+    hyperparameters = [3]
+    model successfully loaded from modelconfigures/MultiMF_config_synthetic_N500_M500_L3_K5_0.7train[3]_SGDstep0.01_SCALE0.1
+    [0.69853165030427544, 0.6752033986613764]
+
+    hyperparameters = [5]
+    model successfully loaded from modelconfigures/MultiMF_config_synthetic_N500_M500_L3_K5_0.7train[5]_SGDstep0.01_SCALE0.1
+    [0.27582880349251099, 0.8788826099154342]
+
+    hyperparameters = [15]
+    model successfully loaded from modelconfigures/MultiMF_config_synthetic_N500_M500_L3_K5_0.7train[15]_SGDstep0.01_SCALE0.1
+    [0.29048054306715737, 0.873451965853072]
+
+    method = MultiMF01Loss
+    hyperparameters = [5]
+    model successfully loaded from modelconfigures/MultiMF01Loss_config_synthetic_N500_M500_L3_K5_0.7train[5]_SGDstep0.01_SCALE0.1
+    [0.4940747495846074, 0.7318544346919963]
+
+
+    method = TD
+    hyperparameters = [9,9,3]
+    model successfully loaded from modelconfigures/TD_config_synthetic_N500_M500_L3_K5_0.7train[9, 9, 3]_SGDstep0.01_SCALE0.1
+    [0.73238608028718344, 0.6585307202116147]
+
+    hyperparameters = [15,15,5]
+    model successfully loaded from modelconfigures/TD_config_synthetic_N500_M500_L3_K5_0.7train[15, 15, 5]_SGDstep0.01_SCALE0.1
+    [0.33979833135837068, 0.8561580698168411]
+
+    hyperparameters = [45,45,5]
+    model successfully loaded from modelconfigures/TD_config_synthetic_N500_M500_L3_K5_0.7train[45, 45, 5]_SGDstep0.01_SCALE0.1
+    [0.39945449647342518, 0.8289447316740812]
+
+    method = TD01Loss
+    hyperparameters = [15, 15, 5]
+    model successfully loaded from modelconfigures/TD01Loss_config_synthetic_N500_M500_L3_K5_0.7train[15, 15, 5]_SGDstep0.01_SCALE0.1
+    [0.36464158775870237, 0.8137148811670875]
+
+
+    method = CD
+    hyperparameters = [9]
+    model successfully loaded from modelconfigures/CD_config_synthetic_N500_M500_L3_K5_0.7train[9]_SGDstep0.01_SCALE0.1
+    [0.70439643811459607, 0.6752033986613764]
+
+    hyperparameters = [15]
+    model successfully loaded from modelconfigures/CD_config_synthetic_N500_M500_L3_K5_0.7train[15]_SGDstep0.01_SCALE0.1
+    [0.31375585386360744, 0.8710672918921085]
+
+    hyperparameters = [45]
+    model successfully loaded from modelconfigures/CD_config_synthetic_N500_M500_L3_K5_0.7train[45]_SGDstep0.01_SCALE0.1
+    [0.35203199650904832, 0.8538134744098433]
+
+    method = CD01Loss
+    hyperparameters = [15]
+    model successfully loaded from modelconfigures/CD01Loss_config_synthetic_N500_M500_L3_K5_0.7train[15]_SGDstep0.01_SCALE0.1
+    [0.36428632317466492, 0.8165003406677087]
