@@ -48,7 +48,7 @@ class CD(TD):
             print "after epoch ", epoch, "loss valid: ", loss_valid_new
             if loss_valid is not None and loss_valid_new > loss_valid:
                 print "overfitting in epoch: ", epoch
-                break
+                # break
             loss_valid = loss_valid_new
             # self.SGDstepUpdate(epoch)
         return self
@@ -70,12 +70,12 @@ class CD(TD):
             if predict:
                 self.u[uid] = self.u_avg
             else:
-                self.u[uid] = np.random.normal(0.0, 1.0, size = self.k)
+                self.u[uid] = np.random.normal(0.0, SCALE, size = self.k)
         if iid not in self.v:
             if predict:
                 self.v[iid] = self.v_avg
             else:
-                self.v[iid] = np.random.normal(0.0, 1.0, size = self.k)
+                self.v[iid] = np.random.normal(0.0, SCALE, size = self.k)
         return self
 
     def update(self, instance, isamp):
