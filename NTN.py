@@ -76,10 +76,10 @@ class NTN(MCCF):
         delt_W1u = TensorOuterFull([L1grad, self.u[uid]])
         delt_W1v = TensorOuterFull([L1grad, self.v[iid]])
         delt_B1 = 1.0 * L1grad
-        delt_u = np.tensordot(a = L1grad, axes = (0,1),
-                              b = (np.tensordot(self.W1bi, self.v[iid], axes=(-1,0)) + self.W1u))
-        delt_v = np.tensordot(a = L1grad, axes = (0,1),
-                              b = (np.tensordot(self.W1bi, self.u[uid], axes=(-2,0)) + self.W1v))
+        delt_u = np.tensordot(a = L1grad.reshape(self.L * self.k), axes = (0,0),
+                              b = (np.tensordot(self.W1bi, self.v[iid], axes=(-1,0)) + self.W1u).reshape([(self.L * self.k), self.d]))
+        delt_v = np.tensordot(a = L1grad.reshape(self.L * self.k), axes = (0,0),
+                              b = (np.tensordot(self.W1bi, self.u[uid], axes=(-2,0)) + self.W1v).reshape([(self.L * self.k), self.d]))
         # update #
         self.W2 += (self.SGDstep * delt_W2)
         self.W1bi += (self.SGDstep * delt_W1bi)
@@ -153,7 +153,7 @@ class NTN(MCCF):
         return np.tanh(L1)
 
     def _gradL1(self, L1):
-        return np.power(np.cosh(L1), 2)
+        return np.power(np.cosh(L1), -2)
 
     def _softmaxGradient(self, m, lid):
         expm = np.exp(m)
