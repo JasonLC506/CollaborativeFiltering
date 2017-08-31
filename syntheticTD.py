@@ -4,10 +4,10 @@ synthesizing multiclass dyadic data
 """
 
 import numpy as np
-from TDMultiClass import TDreconstruct
+from TD import TDreconstruct
 import cPickle
 
-SCALE = 0.1
+SCALE = 0.75
 
 class TDsynthetic(object):
     def __init__(self, N, M, L, ku, kv, kr):
@@ -108,6 +108,7 @@ if __name__ == "__main__":
     N = 500
     M = 500
     L = 3
+
     ku = 20
     kv = 20
     kr = 10

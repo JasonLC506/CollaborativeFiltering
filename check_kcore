@@ -1,0 +1,15 @@
+import cPickle
+
+item_file = "data/item_dict_NYTWaPoWSJ"
+user_file = "data/user_dict_NYTWaPoWSJ"
+
+for k in range(2, 51):
+    item_list = cPickle.load(open(item_file + "_K%d" % k, "r"))
+    user_list = cPickle.load(open(user_file + "_K%d" % k, "r"))
+    print "items in %d-core is %d" % (k, len(item_list))
+    print "total reaction", sum(item_list.values())
+    print "min reaction item", min(item_list.values())
+    print "users in %d-core is %d" % (k, len(user_list))
+    print "total reaction", sum(user_list.values())
+    print "min reaction user", min(user_list.values())
+

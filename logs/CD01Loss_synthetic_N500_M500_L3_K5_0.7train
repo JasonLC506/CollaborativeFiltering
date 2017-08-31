@@ -1,0 +1,243 @@
+model_hyperparameters: [15]
+SGDstep: 0.01
+SCALE: 0.1
+after epoch 0 loss training: 0.999985
+after epoch 0 loss valid: 1.000031
+after epoch 1 loss training: 0.999928
+after epoch 1 loss valid: 1.000049
+overfitting in epoch: 1
+after epoch 2 loss training: 0.999851
+after epoch 2 loss valid: 1.000066
+overfitting in epoch: 2
+after epoch 3 loss training: 0.999730
+after epoch 3 loss valid: 1.000085
+overfitting in epoch: 3
+after epoch 4 loss training: 0.999484
+after epoch 4 loss valid: 1.000088
+overfitting in epoch: 4
+after epoch 5 loss training: 0.998257
+after epoch 5 loss valid: 0.999341
+after epoch 6 loss training: 0.671716
+after epoch 6 loss valid: 0.673430
+after epoch 7 loss training: 0.669482
+after epoch 7 loss valid: 0.672510
+after epoch 8 loss training: 0.658384
+after epoch 8 loss valid: 0.664943
+after epoch 9 loss training: 0.610478
+after epoch 9 loss valid: 0.623830
+after epoch 10 loss training: 0.564777
+after epoch 10 loss valid: 0.580785
+after epoch 11 loss training: 0.529621
+after epoch 11 loss valid: 0.547518
+after epoch 12 loss training: 0.501767
+after epoch 12 loss valid: 0.524196
+after epoch 13 loss training: 0.443305
+after epoch 13 loss valid: 0.469775
+after epoch 14 loss training: 0.396948
+after epoch 14 loss valid: 0.423477
+after epoch 15 loss training: 0.388089
+after epoch 15 loss valid: 0.414199
+after epoch 16 loss training: 0.386354
+after epoch 16 loss valid: 0.412095
+after epoch 17 loss training: 0.385372
+after epoch 17 loss valid: 0.411197
+after epoch 18 loss training: 0.384878
+after epoch 18 loss valid: 0.410812
+after epoch 19 loss training: 0.383679
+after epoch 19 loss valid: 0.410940
+overfitting in epoch: 19
+after epoch 20 loss training: 0.382115
+after epoch 20 loss valid: 0.409752
+after epoch 21 loss training: 0.377349
+after epoch 21 loss valid: 0.405140
+after epoch 22 loss training: 0.366149
+after epoch 22 loss valid: 0.392593
+after epoch 23 loss training: 0.358220
+after epoch 23 loss valid: 0.383818
+after epoch 24 loss training: 0.347271
+after epoch 24 loss valid: 0.372424
+after epoch 25 loss training: 0.342131
+after epoch 25 loss valid: 0.366746
+after epoch 26 loss training: 0.340979
+after epoch 26 loss valid: 0.366210
+after epoch 27 loss training: 0.340608
+after epoch 27 loss valid: 0.366435
+overfitting in epoch: 27
+after epoch 28 loss training: 0.340337
+after epoch 28 loss valid: 0.366123
+after epoch 29 loss training: 0.340186
+after epoch 29 loss valid: 0.364973
+after epoch 30 loss training: 0.339820
+after epoch 30 loss valid: 0.365322
+overfitting in epoch: 30
+after epoch 31 loss training: 0.339795
+after epoch 31 loss valid: 0.365654
+overfitting in epoch: 31
+after epoch 32 loss training: 0.339642
+after epoch 32 loss valid: 0.365182
+after epoch 33 loss training: 0.339126
+after epoch 33 loss valid: 0.364654
+after epoch 34 loss training: 0.339145
+after epoch 34 loss valid: 0.365897
+overfitting in epoch: 34
+after epoch 35 loss training: 0.339059
+after epoch 35 loss valid: 0.365343
+after epoch 36 loss training: 0.339114
+after epoch 36 loss valid: 0.365257
+after epoch 37 loss training: 0.338912
+after epoch 37 loss valid: 0.364506
+after epoch 38 loss training: 0.338557
+after epoch 38 loss valid: 0.364338
+after epoch 39 loss training: 0.338570
+after epoch 39 loss valid: 0.364085
+after epoch 40 loss training: 0.338448
+after epoch 40 loss valid: 0.363306
+after epoch 41 loss training: 0.338643
+after epoch 41 loss valid: 0.363781
+overfitting in epoch: 41
+after epoch 42 loss training: 0.338360
+after epoch 42 loss valid: 0.363853
+overfitting in epoch: 42
+after epoch 43 loss training: 0.338235
+after epoch 43 loss valid: 0.363960
+overfitting in epoch: 43
+after epoch 44 loss training: 0.338002
+after epoch 44 loss valid: 0.363413
+after epoch 45 loss training: 0.337971
+after epoch 45 loss valid: 0.363470
+overfitting in epoch: 45
+after epoch 46 loss training: 0.337884
+after epoch 46 loss valid: 0.362837
+after epoch 47 loss training: 0.337786
+after epoch 47 loss valid: 0.363488
+overfitting in epoch: 47
+after epoch 48 loss training: 0.337674
+after epoch 48 loss valid: 0.363262
+after epoch 49 loss training: 0.337654
+after epoch 49 loss valid: 0.362970
+after epoch 50 loss training: 0.337616
+after epoch 50 loss valid: 0.363352
+overfitting in epoch: 50
+after epoch 51 loss training: 0.337658
+after epoch 51 loss valid: 0.362193
+after epoch 52 loss training: 0.337341
+after epoch 52 loss valid: 0.362056
+after epoch 53 loss training: 0.337437
+after epoch 53 loss valid: 0.362291
+overfitting in epoch: 53
+after epoch 54 loss training: 0.337351
+after epoch 54 loss valid: 0.361930
+after epoch 55 loss training: 0.337264
+after epoch 55 loss valid: 0.362463
+overfitting in epoch: 55
+after epoch 56 loss training: 0.337230
+after epoch 56 loss valid: 0.362472
+overfitting in epoch: 56
+after epoch 57 loss training: 0.337145
+after epoch 57 loss valid: 0.362381
+after epoch 58 loss training: 0.337208
+after epoch 58 loss valid: 0.362773
+overfitting in epoch: 58
+after epoch 59 loss training: 0.337004
+after epoch 59 loss valid: 0.362888
+overfitting in epoch: 59
+after epoch 60 loss training: 0.336898
+after epoch 60 loss valid: 0.362684
+after epoch 61 loss training: 0.336962
+after epoch 61 loss valid: 0.363033
+overfitting in epoch: 61
+after epoch 62 loss training: 0.336977
+after epoch 62 loss valid: 0.362648
+after epoch 63 loss training: 0.336985
+after epoch 63 loss valid: 0.363057
+overfitting in epoch: 63
+after epoch 64 loss training: 0.336801
+after epoch 64 loss valid: 0.362137
+after epoch 65 loss training: 0.336848
+after epoch 65 loss valid: 0.362615
+overfitting in epoch: 65
+after epoch 66 loss training: 0.336940
+after epoch 66 loss valid: 0.362450
+after epoch 67 loss training: 0.336685
+after epoch 67 loss valid: 0.361790
+after epoch 68 loss training: 0.336784
+after epoch 68 loss valid: 0.361841
+overfitting in epoch: 68
+after epoch 69 loss training: 0.336610
+after epoch 69 loss valid: 0.361491
+after epoch 70 loss training: 0.336562
+after epoch 70 loss valid: 0.361068
+after epoch 71 loss training: 0.336679
+after epoch 71 loss valid: 0.361532
+overfitting in epoch: 71
+after epoch 72 loss training: 0.336591
+after epoch 72 loss valid: 0.361576
+overfitting in epoch: 72
+after epoch 73 loss training: 0.336583
+after epoch 73 loss valid: 0.361873
+overfitting in epoch: 73
+after epoch 74 loss training: 0.336483
+after epoch 74 loss valid: 0.361723
+after epoch 75 loss training: 0.336693
+after epoch 75 loss valid: 0.361987
+overfitting in epoch: 75
+after epoch 76 loss training: 0.336389
+after epoch 76 loss valid: 0.362203
+overfitting in epoch: 76
+after epoch 77 loss training: 0.336446
+after epoch 77 loss valid: 0.361848
+after epoch 78 loss training: 0.336207
+after epoch 78 loss valid: 0.361636
+after epoch 79 loss training: 0.336445
+after epoch 79 loss valid: 0.361641
+overfitting in epoch: 79
+after epoch 80 loss training: 0.336405
+after epoch 80 loss valid: 0.361655
+overfitting in epoch: 80
+after epoch 81 loss training: 0.336193
+after epoch 81 loss valid: 0.361828
+overfitting in epoch: 81
+after epoch 82 loss training: 0.336270
+after epoch 82 loss valid: 0.361540
+after epoch 83 loss training: 0.336243
+after epoch 83 loss valid: 0.361558
+overfitting in epoch: 83
+after epoch 84 loss training: 0.336133
+after epoch 84 loss valid: 0.362024
+overfitting in epoch: 84
+after epoch 85 loss training: 0.336181
+after epoch 85 loss valid: 0.362608
+overfitting in epoch: 85
+after epoch 86 loss training: 0.336092
+after epoch 86 loss valid: 0.362089
+after epoch 87 loss training: 0.336319
+after epoch 87 loss valid: 0.362050
+after epoch 88 loss training: 0.336040
+after epoch 88 loss valid: 0.361758
+after epoch 89 loss training: 0.336190
+after epoch 89 loss valid: 0.361824
+overfitting in epoch: 89
+after epoch 90 loss training: 0.336223
+after epoch 90 loss valid: 0.362251
+overfitting in epoch: 90
+after epoch 91 loss training: 0.336264
+after epoch 91 loss valid: 0.361840
+after epoch 92 loss training: 0.336097
+after epoch 92 loss valid: 0.360997
+after epoch 93 loss training: 0.335985
+after epoch 93 loss valid: 0.360211
+after epoch 94 loss training: 0.335941
+after epoch 94 loss valid: 0.360849
+overfitting in epoch: 94
+after epoch 95 loss training: 0.336028
+after epoch 95 loss valid: 0.360891
+overfitting in epoch: 95
+after epoch 96 loss training: 0.335879
+after epoch 96 loss valid: 0.360649
+after epoch 97 loss training: 0.335975
+after epoch 97 loss valid: 0.361601
+overfitting in epoch: 97
+after epoch 98 loss training: 0.336055
+after epoch 98 loss valid: 0.361575
+after epoch 99 loss training: 0.336012
+after epoch 99 loss valid: 0.361355
