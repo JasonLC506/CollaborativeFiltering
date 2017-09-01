@@ -96,7 +96,7 @@ class TDsynthetic(object):
             return expm / expmsum
         else:
             lid = np.argmax(np.random.multinomial(1, expm / expmsum, size=1))
-            self.bayesian_error.append((np.sum(expm) - expm[lid])/expmsum)
+            self.bayesian_error.append((np.sum(expm) - expm[lid])/expmsum) # calculate bayesian error
             return lid
 
     def modelPrint2File(self, filename):
@@ -108,9 +108,10 @@ if __name__ == "__main__":
     N = 500
     M = 500
     L = 3
-    ku = 15
-    kv = 15
-    kr = 5
+
+    ku = 20
+    kv = 20
+    kr = 10
     generator = TDsynthetic(N=N,M=M,L=L,ku=ku,kv=kv,kr=kr)
     generator.generate2file(1.0, "data/TDsynthetic_N%d_M%d_L%d_ku%d_kv%d_kr%d" % (N,M,L,ku,kv,kr))
     generator.modelPrint2File("data/TDsynthetic_model_N%d_M%d_L%d_ku%d_kv%d_kr%d" % (N,M,L,ku,kv,kr))

@@ -6,10 +6,17 @@ from CD import CD
 from TD01Loss import TD01Loss
 from CD01Loss import CD01Loss
 from MultiMF01Loss import MultiMF01Loss
+<<<<<<< HEAD
 #from PITF import PITF
 #from NN1Layer import NN1Layer
 import sys
 import ast
+=======
+from PITF import PITF
+from NN1Layer import NN1Layer
+from NTN import NTN
+
+>>>>>>> b09a76cabf4eaec33d7f6622cac052289f3e236c
 
 def fit(data_train, data_valid, method, hyperparameters, max_epoch=10, SGDstep=0.001, SCALE = 0.1):
 
@@ -37,10 +44,10 @@ def performance(data_test, method, modelconfigurefile):
         uid, iid, lid = samp
         lid_pred = model.predict(uid, iid, distribution=False)
         # lid_pred = model.predict(uid, iid)
-        dist.setdefault(lid_pred,[0,0])[0] += 1
+        dist.setdefault(lid,[0,0])[0] += 1
         if lid == lid_pred:
             correct += 1
-            dist[lid_pred][1] += 1
+            dist[lid][1] += 1
         Ntest += 1
     accuracy = 1.0 * correct / Ntest
     return [model_loss, accuracy]
@@ -92,10 +99,10 @@ if __name__ == "__main__":
 
             ## only check model performance ##
 
-            # print performance(data_test = data_test,
-            #                   method = method,
+            print performance(data_test = data_test,
+                              method = method,
             #                   modelconfigurefile="modelconfigures/" + method_name +"_config_TDsynthetic_N500_M500_L3_ku15_kv15_kr5_0.7train" + str(hyperparameters) +"_SGDstep0.01_SCALE0.1")
-                              # modelconfigurefile = "modelconfigures/NN1Layer_config_TDsynthetic_N500_M500_L3_K15_0.7train[15]_SGDstep0.01_SCALE0.1")
+                              modelconfigurefile = "modelconfigures/NTN_config_TDsynthetic_N500_M500_L3_ku20_kv20_kr10_0.7train[5, 20]_SGDstep0.01_SCALE0.1")
 
             ## fit & performance check ##
             result = experiement(data_train = data_train,

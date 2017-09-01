@@ -8,6 +8,7 @@ import sys
 from datetime import timedelta
 import ast
 
+<<<<<<< HEAD
 a = sys.argv[1]
 b = ast.literal_eval(a)
 print a, b
