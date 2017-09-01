@@ -6,9 +6,16 @@ from CD import CD
 from TD01Loss import TD01Loss
 from CD01Loss import CD01Loss
 from MultiMF01Loss import MultiMF01Loss
+<<<<<<< HEAD
 import sys
 import ast
+=======
+# from MultiMA import MultiMA
+# from PITF import PITF
+# from NN1Layer import NN1Layer
+>>>>>>> 3fcb26a89009d6f93b48c06872203c59d7172d77
 from NTN import NTN
+
 
 
 def fit(data_train, data_valid, method, hyperparameters, max_epoch=10, SGDstep=0.001, SCALE = 0.1):
@@ -42,6 +49,7 @@ def performance(data_test, method, modelconfigurefile):
             correct += 1
             dist[lid][1] += 1
         Ntest += 1
+    print dist
     accuracy = 1.0 * correct / Ntest
     return [model_loss, accuracy]
 
@@ -70,9 +78,11 @@ if __name__ == "__main__":
     # hyperparameters_list_list = [[[3], [5], [15]],
     #                         [[9,9,3], [15,15,5], [45,45,15]],
     #                         [[9], [15], [45]]]
+
     method_names = ["NTN"]
     methods_list = [NTN]
     hyperparameters_list_list = ast.literal_eval(sys.argv[1])
+
 
     # method = NN1Layer
     # hyperparameters = [15]
@@ -84,19 +94,18 @@ if __name__ == "__main__":
         for hyperparameters in hyperparameters_list:
 
             # only fit model ##
-            # print fit(data_train = data_train,
-            #           data_valid = data_valid,
-            #           method = method,
-            #           hyperparameters = hyperparameters,
-            #           max_epoch = max_epoch, SGDstep = SGDstep, SCALE = SCALE)
+            print fit(data_train = data_train,
+                      data_valid = data_valid,
+                      method = method,
+                      hyperparameters = hyperparameters,
+                      max_epoch = max_epoch, SGDstep = SGDstep, SCALE = SCALE)
 
             ## only check model performance ##
-
-            #print performance(data_test = data_test,
-            #                  method = method,
-            #                   modelconfigurefile="modelconfigures/" + method_name +"_config_TDsynthetic_N500_M500_L3_ku15_kv15_kr5_0.7train" + str(hyperparameters) +"_SGDstep0.01_SCALE0.1")
-            #                  modelconfigurefile = "modelconfigures/NTN_config_TDsynthetic_N500_M500_L3_ku20_kv20_kr10_0.7train[5, 20]_SGDstep0.01_SCALE0.1")
-
+            # print performance(data_test = data_test,
+            #                   method = method,
+            #                   modelconfigurefile="modelconfigures/TD_config_reaction_NYTWaPoWSJ_K10_0.7train[10, 10, 5]_SGDstep0.001_SCALE0.1")
+            #                   # modelconfigurefile = "modelconfigures/NN1Layer_config_TDsynthetic_N500_M500_L3_K15_0.7train[15]_SGDstep0.01_SCALE0.1")
+            
             ## fit & performance check ##
             result = experiement(data_train = data_train,
                               data_valid = data_valid,

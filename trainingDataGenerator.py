@@ -6,6 +6,7 @@ import numpy as np
 import ast
 
 Notation = {"itemID": "POSTID", "userID": "READERID", "labelID": "EMOTICON"} # transforming from posts notation to CF convention
+
 # label_dict = {0: 0, 1: 1, 2: 2}
 label_dict = {}
 L = 6
