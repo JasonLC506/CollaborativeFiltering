@@ -6,17 +6,10 @@ from CD import CD
 from TD01Loss import TD01Loss
 from CD01Loss import CD01Loss
 from MultiMF01Loss import MultiMF01Loss
-<<<<<<< HEAD
-#from PITF import PITF
-#from NN1Layer import NN1Layer
 import sys
 import ast
-=======
-from PITF import PITF
-from NN1Layer import NN1Layer
 from NTN import NTN
 
->>>>>>> b09a76cabf4eaec33d7f6622cac052289f3e236c
 
 def fit(data_train, data_valid, method, hyperparameters, max_epoch=10, SGDstep=0.001, SCALE = 0.1):
 
@@ -77,8 +70,8 @@ if __name__ == "__main__":
     # hyperparameters_list_list = [[[3], [5], [15]],
     #                         [[9,9,3], [15,15,5], [45,45,15]],
     #                         [[9], [15], [45]]]
-    method_names = ["MultiMF"]
-    methods_list = [MultiMF]
+    method_names = ["NTN"]
+    methods_list = [NTN]
     hyperparameters_list_list = ast.literal_eval(sys.argv[1])
 
     # method = NN1Layer
@@ -99,10 +92,10 @@ if __name__ == "__main__":
 
             ## only check model performance ##
 
-            print performance(data_test = data_test,
-                              method = method,
+            #print performance(data_test = data_test,
+            #                  method = method,
             #                   modelconfigurefile="modelconfigures/" + method_name +"_config_TDsynthetic_N500_M500_L3_ku15_kv15_kr5_0.7train" + str(hyperparameters) +"_SGDstep0.01_SCALE0.1")
-                              modelconfigurefile = "modelconfigures/NTN_config_TDsynthetic_N500_M500_L3_ku20_kv20_kr10_0.7train[5, 20]_SGDstep0.01_SCALE0.1")
+            #                  modelconfigurefile = "modelconfigures/NTN_config_TDsynthetic_N500_M500_L3_ku20_kv20_kr10_0.7train[5, 20]_SGDstep0.01_SCALE0.1")
 
             ## fit & performance check ##
             result = experiement(data_train = data_train,
