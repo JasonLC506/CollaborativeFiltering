@@ -5,10 +5,10 @@ Data is stored line by line with each line a transaction. In most cases, each li
 import numpy as np
 import ast
 
-Notation = {"userID": "POSTID", "itemID": "READERID", "labelID": "EMOTICON"} # transforming from posts notation to CF convention
+Notation = {"itemID": "POSTID", "userID": "READERID", "labelID": "EMOTICON"} # transforming from posts notation to CF convention
 # label_dict = {0: 0, 1: 1, 2: 2}
 label_dict = {}
-L = 3
+L = 6
 for i in range(L):
     label_dict[i] = i
 class datagenerator(object):

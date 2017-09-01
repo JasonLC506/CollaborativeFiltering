@@ -4,10 +4,12 @@ test dictionary find
 import random
 import numpy as np
 from datetime import datetime
+import sys
 from datetime import timedelta
-from MultiMF import MultiMF
+import ast
 
-a = np.array([0.1, 0.3, -0.2, -0.4])
-print np.argmax(a)
-
-print str(MultiMF)
+a = sys.argv[1]
+b = ast.literal_eval(a)
+print a, b
+print type(a), type(b)
+print b[0][0][0]
