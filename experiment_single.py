@@ -8,6 +8,7 @@ from CD01Loss import CD01Loss
 from MultiMF01Loss import MultiMF01Loss
 from MultiMA import MultiMA
 from NTN import NTN
+from BiNN import BiNN
 #from PITF import PITF
 #from NN1Layer import NN1Layer
 import sys
@@ -56,7 +57,7 @@ def experiement(data_train, data_valid, data_test, method, hyperparameters, max_
 
 if __name__ == "__main__":
     np.random.seed(2017)
-    datafile = "data/reaction_NYTWaPoWSJ_K10"
+    datafile = "data/MultiMAsynthetic_N500_M500_L3_K1"
     data_train = datafile + "_0.7train"
     data_valid = datafile + "_0.1valid"
     data_test = datafile + "_0.2test"
@@ -76,9 +77,6 @@ if __name__ == "__main__":
     method_names = ["NTN"]
     methods_list = [NTN]
     hyperparameters_list_list = [[[10,6]]]
-
-    # method = NN1Layer
-    # hyperparameters = [15]
 
     for i in range(len(methods_list)):
         method = methods_list[i]
