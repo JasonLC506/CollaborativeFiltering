@@ -1,5 +1,6 @@
 import numpy as np
 from trainingDataGenerator import datagenerator
+from GMean import Gmeans
 from MultiMF import MultiMF
 from TD import TD
 from CD import CD
@@ -9,6 +10,7 @@ from MultiMF01Loss import MultiMF01Loss
 from MultiMA import MultiMA
 from NTN import NTN
 from BiNN import BiNN
+from BiNN_single import BiNNsingle
 #from PITF import PITF
 #from NN1Layer import NN1Layer
 import sys
@@ -47,7 +49,8 @@ def performance(data_test, method, modelconfigurefile):
         Ntest += 1
     accuracy = 1.0 * correct / Ntest
     print dist
-    return [model_loss, accuracy]
+    gmean = Gmeans(dist)
+    return [model_loss, accuracy, gmean]
 
 
 def experiement(data_train, data_valid, data_test, method, hyperparameters, max_epoch=10, SGDstep=0.001, SCALE = 0.1):
@@ -74,9 +77,12 @@ if __name__ == "__main__":
     # hyperparameters_list_list = [[[3], [5], [15]],
     #                         [[9,9,3], [15,15,5], [45,45,15]],
     #                         [[9], [15], [45]]]
-    method_names = ["BiNN"]
-    methods_list = [BiNN]
-    hyperparameters_list_list = [[[10,6]]]
+    method_names = ["BiNNsingle"]
+    methods_list = [BiNNsingle]
+    hyperparameters_list_list = [[[3]]]
+
+    # method = NN1Layer
+    # hyperparameters = [15]
 
     for i in range(len(methods_list)):
         method = methods_list[i]
