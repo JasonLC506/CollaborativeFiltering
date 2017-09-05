@@ -57,7 +57,7 @@ def experiement(data_train, data_valid, data_test, method, hyperparameters, max_
 
 if __name__ == "__main__":
     np.random.seed(2017)
-    datafile = "data/MultiMAsynthetic_N500_M500_L3_K1"
+    datafile = "data/reaction_NYTWaPoWSJ_K10"
     data_train = datafile + "_0.7train"
     data_valid = datafile + "_0.1valid"
     data_test = datafile + "_0.2test"
@@ -74,8 +74,8 @@ if __name__ == "__main__":
     # hyperparameters_list_list = [[[3], [5], [15]],
     #                         [[9,9,3], [15,15,5], [45,45,15]],
     #                         [[9], [15], [45]]]
-    method_names = ["NTN"]
-    methods_list = [NTN]
+    method_names = ["BiNN"]
+    methods_list = [BiNN]
     hyperparameters_list_list = [[[10,6]]]
 
     for i in range(len(methods_list)):
@@ -93,15 +93,16 @@ if __name__ == "__main__":
 
             ## only check model performance ##
 
-            print performance(data_test = data_test,
-                              method = method,
-                              modelconfigurefile="modelconfigures/" + "NTN_config_reaction_NYTWaPoWSJ_K10_0.7train[10, 6]_SGDstep0.01_SCALE0.1")
+            # print performance(data_test = data_test,
+            #                   method = method,
+            #                   modelconfigurefile="modelconfigures/" + "NTN_config_reaction_NYTWaPoWSJ_K10_0.7train[10, 6]_SGDstep0.01_SCALE0.1")
                               # modelconfigurefile = "modelconfigures/NN1Layer_config_TDsynthetic_N500_M500_L3_K15_0.7train[15]_SGDstep0.01_SCALE0.1")
 
             ## fit & performance check ##
-            #result = experiement(data_train = data_train,
-            #                  data_valid = data_valid,
-            #                  data_test = data_test,
-            #                  method = method,
-            #                  hyperparameters = hyperparameters,
-            #                  max_epoch = max_epoch, SGDstep = SGDstep, SCALE = SCALE)
+            result = experiement(data_train = data_train,
+                              data_valid = data_valid,
+                              data_test = data_test,
+                              method = method,
+                              hyperparameters = hyperparameters,
+                              max_epoch = max_epoch, SGDstep = SGDstep, SCALE = SCALE)
+            print method_name, hyperparameters, result
