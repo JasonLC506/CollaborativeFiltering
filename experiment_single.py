@@ -99,6 +99,7 @@ if __name__ == "__main__":
 
             ## only check model performance ##
 
+
             print performance(data_test = data_test,
                               method = method,
                               modelconfigurefile="modelconfigures/BiNNsingle_config_reaction_NYTWaPoWSJ_K10_0.7train[6]_SGDstep0.01_SCALE0.1")
@@ -111,3 +112,4 @@ if __name__ == "__main__":
             #                   method = method,
             #                   hyperparameters = hyperparameters,
             #                   max_epoch = max_epoch, SGDstep = SGDstep, SCALE = SCALE)
+
