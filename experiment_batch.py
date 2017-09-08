@@ -12,7 +12,7 @@ from MultiMA import MultiMA
 # from PITF import PITF
 # from NN1Layer import NN1Layer
 from NTN import NTN
-
+from BiNN_single import BiNNsingle
 
 
 def fit(data_train, data_valid, method, hyperparameters, max_epoch=10, SGDstep=0.001, SCALE = 0.1):
@@ -76,8 +76,8 @@ if __name__ == "__main__":
     #                         [[9,9,3], [15,15,5], [45,45,15]],
     #                         [[9], [15], [45]]]
 
-    method_names = ["NTN"]
-    methods_list = [NTN]
+    method_names = ["BiNNsingle"]
+    methods_list = [BiNNsingle]
     hyperparameters_list_list = ast.literal_eval(sys.argv[1])
 
 

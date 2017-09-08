@@ -79,7 +79,7 @@ if __name__ == "__main__":
     #                         [[9], [15], [45]]]
     method_names = ["BiNNsingle"]
     methods_list = [BiNNsingle]
-    hyperparameters_list_list = [[[3]]]
+    hyperparameters_list_list = [[[6]]]
 
     # method = NN1Layer
     # hyperparameters = [15]
