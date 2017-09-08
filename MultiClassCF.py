@@ -33,10 +33,11 @@ class MCCF(object):
         self.SGDstep = SGDstep
         self.SCALE = SCALE
 
-        with open(self.logfilename, "a") as logf:
-            logf.write("model_hyperparameters: " + str(model_hyperparameters) + "\n")
-            logf.write("SGDstep: " + str(self.SGDstep) + "\n")
-            logf.write("SCALE: " + str(self.SCALE) + "\n")
+        #with open(self.logfilename, "a") as logf:
+            #logf.write("model_hyperparameters: " + str(model_hyperparameters) + "\n")
+            #logf.write("SGDstep: " + str(self.SGDstep) + "\n")
+            #logf.write("SCALE: " + str(self.SCALE) + "\n")
+        self.logfilename += str(model_hyperparameters) + "_SGDstep" + str(self.SGDstep) + "_SCALE" + str(self.SCALE)
 
         self.modelconfigurefile += str(model_hyperparameters) + "_SGDstep" + str(self.SGDstep) + "_SCALE" + str(self.SCALE)
 

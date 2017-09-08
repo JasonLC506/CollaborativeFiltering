@@ -35,11 +35,13 @@ class MultiMF(MCCF):
         ## according to [1] ##
         if uid not in self.u:
             if predict:
+                print "user new", uid###test
                 self.u[uid] = self.u_avg
             else:
                 self.u[uid] = np.random.normal(0.0, self.SCALE, size=self.L * self.K).reshape([self.L, self.K])
         if iid not in self.v:
             if predict:
+                print "item new", iid###test
                 self.v[iid] = self.v_avg
             else:
                 self.v[iid] = np.random.normal(0.0, self.SCALE, size=self.L * self.K).reshape([self.L, self.K])
