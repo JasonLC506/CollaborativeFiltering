@@ -64,8 +64,8 @@ class MultiMA(MCCF):
         # for v #
         delt_v = mgrad
 
-        self.u[uid] += (self.SGDstep * delt_u)
-        self.v[iid] += (self.SGDstep * delt_v)
+        self.u[uid] += (self.SGDstep * (delt_u - self.lamda * self.u[uid]))
+        self.v[iid] += (self.SGDstep * (delt_v - self.lamda * self.v[iid]))
         return self
 
     def averageEmbedding(self):

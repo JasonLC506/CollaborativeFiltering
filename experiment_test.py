@@ -6,16 +6,8 @@ from CD import CD
 from TD01Loss import TD01Loss
 from CD01Loss import CD01Loss
 from MultiMF01Loss import MultiMF01Loss
-<<<<<<< HEAD
-import sys
-import ast
-=======
-# from MultiMA import MultiMA
-# from PITF import PITF
-# from NN1Layer import NN1Layer
->>>>>>> 3fcb26a89009d6f93b48c06872203c59d7172d77
-from NTN import NTN
-
+from PITF import PITF
+from NN1Layer import NN1Layer
 
 
 def fit(data_train, data_valid, method, hyperparameters, max_epoch=10, SGDstep=0.001, SCALE = 0.1):
@@ -49,8 +41,8 @@ def performance(data_test, method, modelconfigurefile):
             correct += 1
             dist[lid][1] += 1
         Ntest += 1
-    print dist
     accuracy = 1.0 * correct / Ntest
+    print dist
     return [model_loss, accuracy]
 
 
@@ -65,24 +57,18 @@ if __name__ == "__main__":
     data_train = datafile + "_0.7train"
     data_valid = datafile + "_0.1valid"
     data_test = datafile + "_0.2test"
-    max_epoch = 1000
-    # SGDstep = 0.001
+    max_epoch = 500
+    SGDstep = 0.01
     SCALE = 0.1
-   
-    SGDstep = float(ast.literal_eval(sys.argv[2]))
-
-    result_file = "results/temporary.txt"
 
     # methods_list = [MultiMF, TD, CD]
     # method_names = ["MultiMF", "TD", "CD"]
     # hyperparameters_list_list = [[[3], [5], [15]],
     #                         [[9,9,3], [15,15,5], [45,45,15]],
     #                         [[9], [15], [45]]]
-
-    method_names = ["NTN"]
-    methods_list = [NTN]
-    hyperparameters_list_list = ast.literal_eval(sys.argv[1])
-
+    method_names = ["MultiMF"]
+    methods_list = [MultiMF]
+    hyperparameters_list_list =[[[4]]]
 
     # method = NN1Layer
     # hyperparameters = [15]
@@ -92,30 +78,27 @@ if __name__ == "__main__":
         method_name = method_names[i]
         hyperparameters_list = hyperparameters_list_list[i]
         for hyperparameters in hyperparameters_list:
+            print method_name
+            print "hyperparameters =", hyperparameters
 
             # only fit model ##
-            print fit(data_train = data_train,
-                      data_valid = data_valid,
-                      method = method,
-                      hyperparameters = hyperparameters,
-                      max_epoch = max_epoch, SGDstep = SGDstep, SCALE = SCALE)
+            # print fit(data_train = data_train,
+            #           data_valid = data_valid,
+            #           method = method,
+            #           hyperparameters = hyperparameters,
+            #           max_epoch = max_epoch, SGDstep = SGDstep, SCALE = SCALE)
 
             ## only check model performance ##
-            # print performance(data_test = data_test,
-            #                   method = method,
-            #                   modelconfigurefile="modelconfigures/TD_config_reaction_NYTWaPoWSJ_K10_0.7train[10, 10, 5]_SGDstep0.001_SCALE0.1")
-            #                   # modelconfigurefile = "modelconfigures/NN1Layer_config_TDsynthetic_N500_M500_L3_K15_0.7train[15]_SGDstep0.01_SCALE0.1")
-            
-            ## fit & performance check ##
-            result = experiement(data_train = data_train,
-                              data_valid = data_valid,
-                              data_test = data_test,
+
+            print performance(data_test = data_test,
                               method = method,
-                              hyperparameters = hyperparameters,
-                              max_epoch = max_epoch, SGDstep = SGDstep, SCALE = SCALE)
-            print result
-            with open(result_file, "a") as f:
-                f.write(method_name+"\n")
-                f.write("hyperparameters = " + str(hyperparameters) + "\n")
-                f.write(str(result) + "\n")
-     
+                              modelconfigurefile="modelconfigures/MultiMF_config_reaction_NYTWaPoWSJ_K10_0.7train[4]_SGDstep0.001_SCALE0.1")
+                              # modelconfigurefile = "modelconfigures/NN1Layer_config_TDsynthetic_N500_M500_L3_K15_0.7train[15]_SGDstep0.01_SCALE0.1")
+
+            ## fit & performance check ##
+            # print experiement(data_train = data_train,
+            #                   data_valid = data_valid,
+            #                   data_test = data_test,
+            #                   method = method,
+            #                   hyperparameters = hyperparameters,
+            #                   max_epoch = max_epoch, SGDstep = SGDstep, SCALE = SCALE)

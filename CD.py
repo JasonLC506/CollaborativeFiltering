@@ -66,9 +66,9 @@ class CD(MCCF):
         delt_v = np.tensordot(mgrad, np.multiply(self.r, self.u[uid]), axes = (0,0))
         delt_r = np.outer(mgrad, np.multiply(self.u[uid], self.v[iid]))
         # update #
-        self.u[uid] += (self.SGDstep * (delt_u))
-        self.v[iid] += (self.SGDstep * (delt_v))
-        self.r += (self.SGDstep * (delt_r))
+        self.u[uid] += (self.SGDstep * (delt_u - self.lamda * self.u[uid]))
+        self.v[iid] += (self.SGDstep * (delt_v - self.lamda * self.v[iid]))
+        self.r += (self.SGDstep * (delt_r - self.lamda * self.r))
         return self
 
     def averageEmbedding(self):

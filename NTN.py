@@ -81,13 +81,13 @@ class NTN(MCCF):
         delt_v = np.tensordot(a = L1grad.reshape(self.L * self.k), axes = (0,0),
                               b = (np.tensordot(self.W1bi, self.u[uid], axes=(-2,0)) + self.W1v).reshape([(self.L * self.k), self.d]))
         # update #
-        self.W2 += (self.SGDstep * delt_W2)
-        self.W1bi += (self.SGDstep * delt_W1bi)
-        self.W1u += (self.SGDstep * delt_W1u)
-        self.W1v += (self.SGDstep * delt_W1v)
-        self.B1 += (self.SGDstep * delt_B1)
-        self.u[uid] += (self.SGDstep * delt_u)
-        self.v[iid] += (self.SGDstep * delt_v)
+        self.W2 += (self.SGDstep * (delt_W2 - self.lamda * self.W2))
+        self.W1bi += (self.SGDstep * (delt_W1bi - self.lamda * self.W1bi))
+        self.W1u += (self.SGDstep * (delt_W1u - self.lamda * self.W1u))
+        self.W1v += (self.SGDstep * (delt_W1v - self.lamda * self.W1v))
+        self.B1 += (self.SGDstep * (delt_B1 - self.lamda * self.B1))
+        self.u[uid] += (self.SGDstep * (delt_u - self.lamda * self.u[uid]))
+        self.v[iid] += (self.SGDstep * (delt_v - self.lamda * self.v[iid]))
         return self
 
     def averageEmbedding(self):
