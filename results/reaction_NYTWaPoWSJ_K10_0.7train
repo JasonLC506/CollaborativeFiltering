@@ -1,0 +1,41 @@
+Data statistics:
+[[user: #, # reactions, single PPL, single bayesian error]
+[item: #, # reactions, single PPL, single bayesian error]]
+[[351277, 7745626, 0.72840029769887737, 0.276919257397659],
+[3602, 7745626, 0.73330044458252874, 0.2587754688904422]]
+
+MultiMF
+hyperparameters = [4]
+model successfully loaded from modelconfigures/MultiMF_config_reaction_NYTWaPoWSJ_K10_0.7train[4]_SGDstep0.001_SCALE0.1
+{0: [1545046, 1468829], 1: [128769, 30133], 2: [144670, 68242], 3: [69492, 2715], 4: [102888, 34893], 5: [221512, 147230]}
+[0.66608866369559916, 0.7919274156258178, 0.312116458921]
+
+TD
+hyperparameters = [10, 10, 5]
+model successfully loaded from modelconfigures/TD_config_reaction_NYTWaPoWSJ_K10_0.7train[10, 10, 5]_SGDstep0.001_SCALE0.1
+{0: [1545046, 1438632], 1: [128769, 33656], 2: [144670, 81658], 3: [69492, 14856], 4: [102888, 49094], 5: [221512, 149988]}
+[0.57074767903405732, 0.7990880396966702, 0.46011371781]
+
+MultiMA
+hyperparameters = [1]
+model successfully loaded from modelconfigures/MultiMA_config_reaction_NYTWaPoWSJ_K10_0.7train[1]_SGDstep0.01_SCALE0.1
+{0: [1545046, 1457704], 1: [128769, 32870], 2: [144670, 80162], 3: [69492, 15985], 4: [102888, 46331], 5: [221512, 154960]}
+[0.53026325652008155, 0.8081859466085572, 0.461571445169]
+
+NTN
+hyperparameters = [10, 6]
+model successfully loaded from modelconfigures/NTN_config_reaction_NYTWaPoWSJ_K10_0.7train[10, 6]_SGDstep0.01_SCALE0.1
+{0: [1545046, 1442157], 1: [128769, 28667], 2: [144670, 82199], 3: [69492, 18664], 4: [102888, 54366], 5: [221512, 148032]}
+[0.5575228189432081, 0.8018909073815177, 0.472994723182]
+
+BiNN
+hyperparameters = [10, 6]
+model successfully loaded from modelconfigures/BiNN_config_reaction_NYTWaPoWSJ_K10_0.7train[10, 6]_SGDstep0.01_SCALE0.1
+{0: [1545046, 1449760], 1: [128769, 21653], 2: [144670, 83843], 3: [69492, 16631], 4: [102888, 53284], 5: [221512, 142793]}
+[0.56466677350287187, 0.7991241998990226, 0.44050410404058821]
+
+BiNNsingle
+hyperparameters = [6]
+model successfully loaded from modelconfigures/BiNNsingle_config_reaction_NYTWaPoWSJ_K10_0.7train[6]_SGDstep0.01_SCALE0.1
+{0: [1545046, 1441325], 1: [128769, 32967], 2: [144670, 86065], 3: [69492, 17102], 4: [102888, 48178], 5: [221512, 145938]}
+[0.55853472524336811, 0.8007563810327083, 0.47006034653852885]

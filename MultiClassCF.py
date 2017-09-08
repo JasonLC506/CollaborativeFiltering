@@ -26,12 +26,13 @@ class MCCF(object):
         self.logfilename = "MCCF"   ## model dependent
         self.modelconfigurefile = "MCCF_config"     ## model dependent
 
-    def fit(self, training, valid, model_hyperparameters, max_epoch = 1000, SGDstep = 0.001, SCALE = 0.1):
+    def fit(self, training, valid, model_hyperparameters, max_epoch = 1000, SGDstep = 0.001, SCALE = 0.1, lamda = 0.001):
         # model independent #
         self.set_model_hyperparameters(model_hyperparameters)
         self.L = training.L()
         self.SGDstep = SGDstep
         self.SCALE = SCALE
+        self.lamda = lamda
 
         with open(self.logfilename, "a") as logf:
             logf.write("model_hyperparameters: " + str(model_hyperparameters) + "\n")

@@ -62,8 +62,8 @@ class MultiMF(MCCF):
         delt_v = - np.transpose(np.multiply(np.transpose(self.u[uid]), expprod)) / expprodsum
         delt_v[lid] += self.u[uid][lid]
 
-        self.u[uid] += (self.SGDstep * delt_u)
-        self.v[iid] += (self.SGDstep * delt_v)
+        self.u[uid] += (self.SGDstep * (delt_u - self.lamda * self.u[uid]))
+        self.v[iid] += (self.SGDstep * (delt_v - self.lamda * self.v[iid]))
         return self
 
     def averageEmbedding(self):
