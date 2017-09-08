@@ -16,7 +16,7 @@ from BiNN_single import BiNNsingle
 import sys
 import ast
 
-def fit(data_train, data_valid, method, hyperparameters, max_epoch=10, SGDstep=0.001, SCALE = 0.1):
+def fit(data_train, data_valid, method, hyperparameters, max_epoch=10, SGDstep=0.001, SCALE = 0.1, lamda = 0.001):
 
     training = datagenerator(data_train)
     valid = datagenerator(data_valid)
@@ -24,7 +24,7 @@ def fit(data_train, data_valid, method, hyperparameters, max_epoch=10, SGDstep=0
     model = method()
     model.logfilename += "_" + data_train[5:]
     model.modelconfigurefile += "_" + data_train[5:]
-    model.fit(training, valid, model_hyperparameters = hyperparameters, max_epoch = max_epoch, SGDstep = SGDstep)
+    model.fit(training, valid, model_hyperparameters = hyperparameters, max_epoch = max_epoch, SGDstep = SGDstep, SCALE = SCALE, lamda = lamda)
     return model.modelconfigurefile
 
 
@@ -53,8 +53,8 @@ def performance(data_test, method, modelconfigurefile):
     return [model_loss, accuracy, gmean]
 
 
-def experiement(data_train, data_valid, data_test, method, hyperparameters, max_epoch=10, SGDstep=0.001, SCALE = 0.1):
-    modelconfigurefile = fit(data_train, data_valid, method, hyperparameters, max_epoch = max_epoch, SGDstep = SGDstep, SCALE = SCALE)
+def experiement(data_train, data_valid, data_test, method, hyperparameters, max_epoch=10, SGDstep=0.001, SCALE = 0.1, lamda = 0.001):
+    modelconfigurefile = fit(data_train, data_valid, method, hyperparameters, max_epoch = max_epoch, SGDstep = SGDstep, SCALE = SCALE, lamda = lamda)
     return performance(data_test, method, modelconfigurefile)
 
 
@@ -67,6 +67,7 @@ if __name__ == "__main__":
     max_epoch = 1000
     SGDstep = 0.01
     SCALE = 0.1
+    lamda = 0.001
    
     #SGDstep = float(ast.literal_eval(sys.argv[2]))
     
@@ -95,7 +96,7 @@ if __name__ == "__main__":
             #           data_valid = data_valid,
             #           method = method,
             #           hyperparameters = hyperparameters,
-            #           max_epoch = max_epoch, SGDstep = SGDstep, SCALE = SCALE)
+            #           max_epoch = max_epoch, SGDstep = SGDstep, SCALE = SCALE, lamda = lamda)
 
             ## only check model performance ##
 
@@ -111,5 +112,5 @@ if __name__ == "__main__":
             #                   data_test = data_test,
             #                   method = method,
             #                   hyperparameters = hyperparameters,
-            #                   max_epoch = max_epoch, SGDstep = SGDstep, SCALE = SCALE)
+            #                   max_epoch = max_epoch, SGDstep = SGDstep, SCALE = SCALE, lamda = lamda)
 
