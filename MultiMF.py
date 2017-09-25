@@ -5,7 +5,7 @@ Menon, A.K. and Elkan, C., 2010, December. A log-linear model with latent featur
 
 import numpy as np
 import cPickle
-from MultiClassCF import MCCF
+from MultiClassCF import MCCF, softmaxOutput, softmaxGradient
 
 
 class MultiMF(MCCF):
@@ -55,14 +55,12 @@ class MultiMF(MCCF):
         uid, iid, lid = instance
         ## calculate update step ##
         # intermediate #
-        expprod = np.exp(np.sum(np.multiply(self.u[uid], self.v[iid]), axis=1))
-        expprodsum = np.sum(expprod)
+        m = np.sum(np.multiply(self.u[uid], self.v[iid]), axis=1)
+        mgrad = softmaxGradient(m, lid)
         # for u #
-        delt_u = - np.transpose(np.multiply(np.transpose(self.v[iid]), expprod)) / expprodsum
-        delt_u[lid] += self.v[iid][lid]
+        delt_u = - np.transpose(np.multiply(np.transpose(self.v[iid]), mgrad))
         # for v #
-        delt_v = - np.transpose(np.multiply(np.transpose(self.u[uid]), expprod)) / expprodsum
-        delt_v[lid] += self.u[uid][lid]
+        delt_v = - np.transpose(np.multiply(np.transpose(self.u[uid]), mgrad))
 
         self.u[uid] += (self.SGDstep * (delt_u - self.lamda * self.u[uid]))
         self.v[iid] += (self.SGDstep * (delt_v - self.lamda * self.v[iid]))
@@ -78,12 +76,8 @@ class MultiMF(MCCF):
         distribution == True when probability distribution is output
         """
         self.initialize(uid, iid, predict = True)   # set avg embeddings for cold-start entries
-        expprod = np.exp(np.sum(np.multiply(self.u[uid], self.v[iid]), axis=1))
-        expprodsum = np.sum(expprod)
-        if distribution:
-            return expprod/expprodsum
-        else:
-            return np.argmax(expprod)
+        m = np.sum(np.multiply(self.u[uid], self.v[iid]), axis=1)
+        return softmaxOutput(m, distribution=distribution)
 
     def modelconfigStore(self, modelconfigurefile = None):
         if modelconfigurefile is None:

@@ -4,7 +4,7 @@ baseline: multiclass matrix additation model, rating is sum of user and item
 
 import numpy as np
 import cPickle
-from MultiClassCF import MCCF
+from MultiClassCF import MCCF, softmaxOutput, softmaxGradient
 
 
 class MultiMA(MCCF):
@@ -54,11 +54,7 @@ class MultiMA(MCCF):
         ## calculate update step ##
         # intermediate #
         m = self.u[uid] + self.v[iid]
-        expm = np.exp(m)
-        expmsum = np.sum(expm)
-        mgrad = expm / expmsum
-        mgrad[lid] = mgrad[lid] - 1.0
-        mgrad = - mgrad
+        mgrad = softmaxGradient(m, lid)
         # for u #
         delt_u = mgrad
         # for v #
@@ -79,12 +75,7 @@ class MultiMA(MCCF):
         """
         self.initialize(uid, iid, predict = True)   # set avg embeddings for cold-start entries
         m = self.u[uid] + self.v[iid]
-        expm = np.exp(m)
-        expmsum = np.sum(expm)
-        if distribution:
-            return expm/expmsum
-        else:
-            return np.argmax(expm)
+        return softmaxOutput(m, distribution=distribution)
 
     def modelconfigStore(self, modelconfigurefile = None):
         if modelconfigurefile is None:

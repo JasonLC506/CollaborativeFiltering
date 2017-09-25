@@ -4,6 +4,8 @@ Superclass of multiclass collaborative filtering embedding methods with SGD opti
 
 import numpy as np
 
+WEIGHTS = [0.1, 1.0, 1.0, 1.0, 1.0, 1.0]
+
 class MCCF(object):
     def __init__(self):
         # model hyperparameters #
@@ -132,3 +134,23 @@ class MCCF(object):
 
 def ppl(predprob, truelabel):
     return (- np.log(predprob[truelabel]))
+
+
+def softmaxGradient(m, lid, weights = WEIGHTS):
+    expm = np.exp(m)
+    expmsum = np.sum(expm)
+    mgrad = expm / expmsum
+    mgrad[lid] = mgrad[lid] - 1.0
+    mgrad = - mgrad
+    if weights is not None:
+        mgrad = mgrad * weights[lid]
+    return mgrad
+
+
+def softmaxOutput(m, distribution = True):
+    expm = np.exp(m)
+    expmsum = np.sum(expm)
+    if distribution:
+        return expm / expmsum
+    else:
+        return np.argmax(expm)

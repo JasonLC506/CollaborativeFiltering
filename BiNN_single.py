@@ -7,7 +7,7 @@ import numpy as np
 import cPickle
 from matrixTool import transMultiply
 from matrixTool import TensorOuterFull
-from MultiClassCF import MCCF
+from MultiClassCF import MCCF, softmaxOutput, softmaxGradient
 
 class BiNNsingle(MCCF):
     def __init__(self):
@@ -159,21 +159,3 @@ def denseLayer(outLayerLower, W, B):
 
 def denseLayerGradBP(GradLayerUp, W):
     return np.tensordot(GradLayerUp, W, axes = (0,0))
-
-
-def softmaxGradient(m, lid):
-    expm = np.exp(m)
-    expmsum = np.sum(expm)
-    mgrad = expm / expmsum
-    mgrad[lid] = mgrad[lid] - 1.0
-    mgrad = - mgrad
-    return mgrad
-
-
-def softmaxOutput(m, distribution = True):
-    expm = np.exp(m)
-    expmsum = np.sum(expm)
-    if distribution:
-        return expm / expmsum
-    else:
-        return np.argmax(expm)

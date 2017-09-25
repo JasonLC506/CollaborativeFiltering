@@ -7,7 +7,7 @@ in context of facebook emoticon rating, rating classes are fixed, given and smal
 import numpy as np
 import cPickle
 import matrixTool
-from MultiClassCF import MCCF
+from MultiClassCF import MCCF, softmaxOutput, softmaxGradient
 
 
 class TD(MCCF):
@@ -66,11 +66,7 @@ class TD(MCCF):
         ## calculate single gradient ##
         # intermediate #
         m = TDreconstruct(self.c, self.u[uid], self.v[iid], self.r)
-        expm = np.exp(m)
-        expmsum = np.sum(expm)
-        mgrad = expm / expmsum
-        mgrad[lid] = mgrad[lid] - 1.0
-        mgrad = - mgrad
+        mgrad = softmaxGradient(m, lid)
         # gradient for embeddings #
         delt_u = np.tensordot(a=mgrad, axes=(0, 1),
                               b=np.tensordot(a=self.v[iid], axes=(0, 1),
@@ -106,12 +102,7 @@ class TD(MCCF):
     def predict(self, uid, iid, distribution = True):
         self.initialize(uid, iid, predict = True)
         m = TDreconstruct(self.c, self.u[uid], self.v[iid], self.r)
-        expm = np.exp(m)
-        expmsum = np.sum(expm)
-        if distribution:
-            return expm / expmsum
-        else:
-            return np.argmax(expm)
+        return softmaxOutput(m, distribution=distribution)
 
     def modelconfigStore(self, modelconfigurefile = None):
         if modelconfigurefile is None:

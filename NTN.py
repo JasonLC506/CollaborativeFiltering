@@ -7,7 +7,7 @@ import numpy as np
 import cPickle
 from matrixTool import transMultiply
 from matrixTool import TensorOuterFull
-from MultiClassCF import MCCF
+from MultiClassCF import MCCF, softmaxOutput, softmaxGradient
 
 class NTN(MCCF):
     def __init__(self):
@@ -68,7 +68,7 @@ class NTN(MCCF):
         L1 = self._L1(uid, iid)
         outL1 = self._outL1(L1)
         m = np.sum(np.multiply(self.W2, outL1), axis = 1)
-        mgrad = self._softmaxGradient(m, lid)
+        mgrad = softmaxGradient(m, lid)
         L1grad = transMultiply(np.multiply(self._gradL1(L1), self.W2), mgrad)
         # gradient #
         delt_W2 = transMultiply(outL1, mgrad)
@@ -99,12 +99,7 @@ class NTN(MCCF):
         L1 = self._L1(uid, iid)
         outL1 = self._outL1(L1)
         m = np.sum(np.multiply(self.W2, outL1), axis = 1)
-        expm = np.exp(m)
-        expmsum = np.sum(expm)
-        if distribution:
-            return expm / expmsum
-        else:
-            return np.argmax(expm)
+        return softmaxOutput(m, distribution=distribution)
 
     def modelconfigStore(self, modelconfigurefile = None):
         if modelconfigurefile is None:
