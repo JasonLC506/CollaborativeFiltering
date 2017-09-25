@@ -26,7 +26,8 @@ class MCCF(object):
         self.logfilename = "MCCF"   ## model dependent
         self.modelconfigurefile = "MCCF_config"     ## model dependent
 
-    def fit(self, training, valid, model_hyperparameters, max_epoch = 1000, SGDstep = 0.001, SCALE = 0.1, lamda = 0.001):
+    def fit(self, training, valid, model_hyperparameters, max_epoch = 1000, SGDstep = 0.001, SCALE = 0.1, lamda = 0.001,
+            no_initialization = False):
         # model independent #
         self.set_model_hyperparameters(model_hyperparameters)
         self.L = training.L()
@@ -41,8 +42,8 @@ class MCCF(object):
             logf.write("lamda: " + str(self.lamda) + "\n")
 
         self.modelconfigurefile += str(model_hyperparameters) + "_SGDstep" + str(self.SGDstep) + "_SCALE" + str(self.SCALE) + "_lamda" + str(self.lamda)
-
-        self.basicInitialize()
+        if not no_initialization:
+            self.basicInitialize()
 
         # SGD #
         loss_valid = None
