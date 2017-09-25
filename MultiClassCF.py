@@ -35,11 +35,11 @@ class MCCF(object):
         self.SCALE = SCALE
         self.lamda = lamda
 
-        with open(self.logfilename, "a") as logf:
-            logf.write("model_hyperparameters: " + str(model_hyperparameters) + "\n")
-            logf.write("SGDstep: " + str(self.SGDstep) + "\n")
-            logf.write("SCALE: " + str(self.SCALE) + "\n")
-            logf.write("lamda: " + str(self.lamda) + "\n")
+        #with open(self.logfilename, "a") as logf:
+            #logf.write("model_hyperparameters: " + str(model_hyperparameters) + "\n")
+            #logf.write("SGDstep: " + str(self.SGDstep) + "\n")
+            #logf.write("SCALE: " + str(self.SCALE) + "\n")
+        self.logfilename += str(model_hyperparameters) + "_SGDstep" + str(self.SGDstep) + "_SCALE" + str(self.SCALE) + "_lamda" + str(self.lamda)
 
         self.modelconfigurefile += str(model_hyperparameters) + "_SGDstep" + str(self.SGDstep) + "_SCALE" + str(self.SCALE) + "_lamda" + str(self.lamda)
         if not no_initialization:
