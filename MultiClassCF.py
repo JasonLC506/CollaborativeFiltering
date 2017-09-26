@@ -5,6 +5,7 @@ Superclass of multiclass collaborative filtering embedding methods with SGD opti
 import numpy as np
 
 WEIGHTS = [0.1, 1.0, 1.0, 1.0, 1.0, 1.0]
+# WEIGHTS = None
 
 class MCCF(object):
     def __init__(self):
@@ -42,8 +43,11 @@ class MCCF(object):
             #logf.write("SGDstep: " + str(self.SGDstep) + "\n")
             #logf.write("SCALE: " + str(self.SCALE) + "\n")
         self.logfilename += str(model_hyperparameters) + "_SGDstep" + str(self.SGDstep) + "_SCALE" + str(self.SCALE) + "_lamda" + str(self.lamda)
-
         self.modelconfigurefile += str(model_hyperparameters) + "_SGDstep" + str(self.SGDstep) + "_SCALE" + str(self.SCALE) + "_lamda" + str(self.lamda)
+        if WEIGHTS is not None:
+            self.logfilename += str(WEIGHTS)
+            self.modelconfigurefile += str(WEIGHTS)
+
         if not no_initialization:
             self.basicInitialize()
 
@@ -108,7 +112,10 @@ class MCCF(object):
         for samp in test.sample(random = False):
             uid, iid, lid = samp
             predprob = self.predict(uid, iid, distribution = True)
-            perf = ppl(predprob = predprob, truelabel = lid)
+            if WEIGHTS is not None:
+                perf = ppl(predprob = predprob, truelabel = lid, weight = WEIGHTS[lid])
+            else:
+                perf = ppl(predprob=predprob, truelabel=lid)
             losssum += perf
             nsamp += 1
         return losssum/nsamp
@@ -132,8 +139,11 @@ class MCCF(object):
         """
 
 
-def ppl(predprob, truelabel):
-    return (- np.log(predprob[truelabel]))
+def ppl(predprob, truelabel, weight = None):
+    if weight is None:
+        return (- np.log(predprob[truelabel]))
+    else:
+        return (- weight * np.log(predprob[truelabel]))
 
 
 def softmaxGradient(m, lid, weights = WEIGHTS):
