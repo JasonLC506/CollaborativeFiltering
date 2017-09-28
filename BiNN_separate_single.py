@@ -85,7 +85,7 @@ class BiNNSeparateSingle(MCCF):
         # ### test ###
         # # reduce to MultiMA #
         # self.W1bi[:,:,:] = 0.0
-        # self.B1[:] = 0.0
+        self.B1[:] = 0.0
         return self
 
     def averageEmbedding(self):
@@ -133,11 +133,3 @@ class BiNNSeparateSingle(MCCF):
         lu = self.u[uid][1]
         lv = self.v[iid][1]
         return (bi + lu + lv + self.B1)
-
-
-def denseLayer(outLayerLower, W, B):
-    return (np.tensordot(W, outLayerLower, axes=(-1,0)) + B)
-
-
-def denseLayerGradBP(GradLayerUp, W):
-    return np.tensordot(GradLayerUp, W, axes = (0,0))

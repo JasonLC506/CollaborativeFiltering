@@ -58,9 +58,9 @@ class MultiMF(MCCF):
         m = np.sum(np.multiply(self.u[uid], self.v[iid]), axis=1)
         mgrad = softmaxGradient(m, lid)
         # for u #
-        delt_u = - np.transpose(np.multiply(np.transpose(self.v[iid]), mgrad))
+        delt_u = np.transpose(np.multiply(np.transpose(self.v[iid]), mgrad))
         # for v #
-        delt_v = - np.transpose(np.multiply(np.transpose(self.u[uid]), mgrad))
+        delt_v = np.transpose(np.multiply(np.transpose(self.u[uid]), mgrad))
 
         self.u[uid] += (self.SGDstep * (delt_u - self.lamda * self.u[uid]))
         self.v[iid] += (self.SGDstep * (delt_v - self.lamda * self.v[iid]))
